@@ -1,0 +1,9 @@
+{
+  "fixtureVersion": "handwerk.ai-replay.v1",
+  "synthetic": true,
+  "fixtureId": "malformed-output",
+  "response": {
+    "kind": "OUTPUT",
+    "body": "{\"contractVersion\":\"handwerk.vertical-slice.v1\",\"facts\":["
+  }
+}

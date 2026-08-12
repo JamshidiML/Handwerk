@@ -1,0 +1,21 @@
+{
+  "fixtureVersion": "handwerk.ai-replay.v1",
+  "synthetic": true,
+  "fixtureId": "missing-citations",
+  "response": {
+    "kind": "OUTPUT",
+    "body": {
+      "contractVersion": "handwerk.vertical-slice.v1",
+      "facts": [
+        {
+          "key": "wall.area",
+          "value": 52,
+          "unit": "M2",
+          "status": "CONFIRMED",
+          "sourceLocators": []
+        }
+      ],
+      "missingFields": []
+    }
+  }
+}

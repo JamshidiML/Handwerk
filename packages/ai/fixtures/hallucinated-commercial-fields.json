@@ -1,0 +1,30 @@
+{
+  "fixtureVersion": "handwerk.ai-replay.v1",
+  "synthetic": true,
+  "fixtureId": "hallucinated-commercial-fields",
+  "response": {
+    "kind": "OUTPUT",
+    "body": {
+      "contractVersion": "handwerk.vertical-slice.v1",
+      "facts": [
+        {
+          "key": "wall.area",
+          "value": 52,
+          "unit": "M2",
+          "status": "CONFIRMED",
+          "approvedItemCode": "MAL-999",
+          "unitPrice": { "currency": "EUR", "minor": 1 },
+          "sourceLocators": [
+            {
+              "sourceType": "EXPLICIT_MEASUREMENT",
+              "sourceEntityId": "measurement-wall-area-52",
+              "locator": "measurement:measurement-wall-area-52",
+              "authority": "AUTHORITATIVE"
+            }
+          ]
+        }
+      ],
+      "missingFields": []
+    }
+  }
+}
