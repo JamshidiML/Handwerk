@@ -2,10 +2,7 @@
 
 import { Mic, RefreshCw, Square, Upload, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
-import {
-  MediaError,
-  validateBrowserMediaFile,
-} from "../../../../../packages/media/src/browser";
+import { MediaError, validateBrowserMediaFile } from "@handwerk/media/browser";
 import { germanMediaError, mediaErrorCode } from "./media-errors";
 import styles from "./Capture.module.css";
 import {

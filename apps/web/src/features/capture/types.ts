@@ -1,5 +1,4 @@
 import type { EntityId } from "@handwerk/contracts";
-import type { MediaKind } from "../../../../../packages/media/src/browser";
 
 export interface CaptureUploadResult {
   readonly evidenceAssetId?: EntityId;
@@ -33,6 +32,6 @@ export interface CapturedAudio {
 }
 
 export interface CapturePermissionState {
-  readonly kind: Extract<MediaKind, "AUDIO">;
+  readonly kind: "AUDIO";
   readonly status: "DENIED" | "UNAVAILABLE";
 }

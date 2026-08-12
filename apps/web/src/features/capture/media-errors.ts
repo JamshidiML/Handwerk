@@ -1,5 +1,4 @@
-import { MediaError } from "../../../../../packages/media/src/browser";
-import type { MediaErrorCode } from "../../../../../packages/media/src/types";
+import { MediaError, type MediaErrorCode } from "@handwerk/media/browser";
 
 const GERMAN_MEDIA_ERRORS: Readonly<Record<MediaErrorCode, string>> = {
   CANCELLED: "Upload abgebrochen.",

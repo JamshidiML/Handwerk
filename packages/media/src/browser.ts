@@ -7,6 +7,7 @@ import {
 import { MEDIA_POLICY } from "./policy";
 import type {
   DetectedMedia,
+  MediaErrorCode,
   MediaKind,
   MediaUploadCandidate,
   ValidatedMedia,
@@ -58,4 +59,4 @@ export async function validateBrowserMediaFile(
 }
 
 export { MEDIA_POLICY, MediaError, detectMediaContent, validateMediaCount };
-export type { DetectedMedia, MediaKind, ValidatedMedia };
+export type { DetectedMedia, MediaErrorCode, MediaKind, ValidatedMedia };

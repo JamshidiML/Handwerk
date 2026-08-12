@@ -7,7 +7,7 @@ import {
   MediaError,
   validateBrowserMediaFile,
   validateMediaCount,
-} from "../../../../../packages/media/src/browser";
+} from "@handwerk/media/browser";
 import { germanMediaError, mediaErrorCode } from "./media-errors";
 import styles from "./Capture.module.css";
 import {
