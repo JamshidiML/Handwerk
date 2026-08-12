@@ -75,6 +75,7 @@
   "keyboard": [
     "First Tab focuses the skip link",
     "Customer creation completes with Enter and Tab only",
+    "Project creation completes with Enter and Tab only",
     "Destructive dialog focuses Cancel, traps focus, and closes with Escape",
     "Project-to-site-visit navigation completes by keyboard"
   ]

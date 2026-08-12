@@ -124,6 +124,28 @@ await keyboardPage
   .waitFor();
 evidence.keyboard.push("Customer creation completes with Enter and Tab only");
 
+const createProject = keyboardPage
+  .getByRole("button", { name: "Projekt anlegen" })
+  .first();
+await createProject.focus();
+await keyboardPage.keyboard.press("Enter");
+const projectInput = keyboardPage.getByLabel("Projektbezeichnung");
+await projectInput.waitFor();
+assert.equal(
+  await projectInput.evaluate((element) => element === document.activeElement),
+  true,
+);
+await keyboardPage.keyboard.type("Demo-Projekt Tastatur");
+await keyboardPage.keyboard.press("Tab");
+await keyboardPage.keyboard.type("Bochum-Ehrenfeld");
+await keyboardPage.keyboard.press("Tab");
+await keyboardPage.keyboard.press("Tab");
+await keyboardPage.keyboard.press("Enter");
+await keyboardPage
+  .getByRole("heading", { name: "Demo-Projekt Tastatur" })
+  .waitFor();
+evidence.keyboard.push("Project creation completes with Enter and Tab only");
+
 const removableCustomer = keyboardPage
   .getByRole("button", { name: /Demo-Hausverwaltung Morgenrot/ })
   .first();
