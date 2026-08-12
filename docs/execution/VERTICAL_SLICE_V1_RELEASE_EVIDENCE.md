@@ -15,9 +15,9 @@
 
 The browser suite uses the deterministic in-memory synthetic workspace. It does not invoke a paid AI provider, test-support HTTP adapter, real customer record, or production service. `test-results/e2e/.last-run.json` reports `passed` with no failed tests.
 
-## Remaining Final Gate
+## Final Gate Record
 
-The local integrated browser run is complete. The coordinator still records the final clean-checkout install, full root quality/test gates, clean PostgreSQL migration/seed evidence, dependency audit, secret scan, and redaction inspection separately before declaring the internal slice complete.
+The integration worktree passed the full serial build/test path, database migration/seed/integration checks, browser suite, secret scan, and audits. A detached clean worktree installed from the reconciled lockfile and passed `npm run ci:quality`; its cold Vinext build was repeatedly interrupted by the desktop execution harness during the long client transform. This is recorded in the scorecard and integration record rather than treated as a passing clean-root-test result.
 
 ## Deliberate Limits
 
