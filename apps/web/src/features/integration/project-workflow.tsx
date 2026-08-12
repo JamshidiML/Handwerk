@@ -2,7 +2,6 @@
 
 import type {
   ClarificationAnswer,
-  ClarificationQuestion,
   EntityId,
   HumanApproval,
   IsoDateTime,
@@ -22,7 +21,7 @@ import {
   renderOfferPdf,
 } from "@handwerk/exports/browser";
 import { SYNTHETIC_MALER_ITEMS } from "@handwerk/pricebook/browser";
-import { Download, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import {
   createContext,
@@ -547,7 +546,7 @@ export function CaptureWorkflowFeature({
   );
 }
 
-export function ClarificationWorkflowFeature(_: ProjectFeatureSlotProps) {
+export function ClarificationWorkflowFeature() {
   const workflow = useIntegratedWorkflow();
   const readyForReview = workflow.records.every(
     (record) =>
@@ -569,7 +568,7 @@ export function ClarificationWorkflowFeature(_: ProjectFeatureSlotProps) {
   );
 }
 
-export function OfferWorkflowFeature(_: ProjectFeatureSlotProps) {
+export function OfferWorkflowFeature() {
   const workflow = useIntegratedWorkflow();
   const unresolvedCriticalQuestionCount = workflow.records.filter(
     (record) =>
