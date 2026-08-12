@@ -1,0 +1,82 @@
+{
+  "baseUrl": "http://127.0.0.1:4173",
+  "accessibility": [
+    {
+      "pathname": "/",
+      "violations": 0
+    },
+    {
+      "pathname": "/kunden",
+      "violations": 0
+    },
+    {
+      "pathname": "/projekte/project-wohnzimmer-bochum",
+      "violations": 0
+    },
+    {
+      "pathname": "/projekte/project-wohnzimmer-bochum/baustellenbesuch",
+      "violations": 0
+    }
+  ],
+  "viewports": [
+    {
+      "pathname": "/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "documentWidth": 1440,
+      "viewportWidth": 1440,
+      "bodyHeight": 1064,
+      "viewportHeight": 1000,
+      "visibleH1": true,
+      "screenshotName": "T02-desktop-dashboard.png"
+    },
+    {
+      "pathname": "/kunden",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "viewportWidth": 390,
+      "bodyHeight": 1228,
+      "viewportHeight": 844,
+      "visibleH1": true,
+      "screenshotName": "T02-mobile-customers.png"
+    },
+    {
+      "pathname": "/projekte/project-wohnzimmer-bochum",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "documentWidth": 1024,
+      "viewportWidth": 1024,
+      "bodyHeight": 1294,
+      "viewportHeight": 768,
+      "visibleH1": true,
+      "screenshotName": "T02-tablet-project.png"
+    },
+    {
+      "pathname": "/projekte/project-wohnzimmer-bochum/baustellenbesuch",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "documentWidth": 390,
+      "viewportWidth": 390,
+      "bodyHeight": 1020,
+      "viewportHeight": 844,
+      "visibleH1": true,
+      "screenshotName": "T02-mobile-site-visit.png"
+    }
+  ],
+  "keyboard": [
+    "First Tab focuses the skip link",
+    "Customer creation completes with Enter and Tab only",
+    "Project creation completes with Enter and Tab only",
+    "Destructive dialog focuses Cancel, traps focus, and closes with Escape",
+    "Project-to-site-visit navigation completes by keyboard"
+  ]
+}
