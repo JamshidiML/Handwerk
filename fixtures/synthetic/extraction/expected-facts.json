@@ -1,0 +1,104 @@
+{
+  "synthetic": true,
+  "fixtureId": "canonical-expected-facts",
+  "expectedOutput": {
+    "contractVersion": "handwerk.vertical-slice.v1",
+    "facts": [
+      {
+        "key": "wall_area",
+        "value": 52,
+        "unit": "M2",
+        "status": "CONFIRMED",
+        "sourceLocators": [
+          {
+            "sourceType": "EXPLICIT_MEASUREMENT",
+            "sourceEntityId": "measurement-wall-52m2",
+            "locator": "quantity.value",
+            "authority": "AUTHORITATIVE"
+          }
+        ]
+      },
+      {
+        "key": "wall_coats",
+        "value": 2,
+        "status": "CONFIRMED",
+        "sourceLocators": [
+          {
+            "sourceType": "TRANSCRIPT_SEGMENT",
+            "sourceEntityId": "transcript-segment-001",
+            "locator": "0-4100ms",
+            "authority": "AUTHORITATIVE"
+          }
+        ]
+      },
+      {
+        "key": "wall_colour",
+        "value": "weiß",
+        "status": "CONFIRMED",
+        "sourceLocators": [
+          {
+            "sourceType": "TRANSCRIPT_SEGMENT",
+            "sourceEntityId": "transcript-segment-001",
+            "locator": "0-4100ms",
+            "authority": "AUTHORITATIVE"
+          }
+        ]
+      },
+      {
+        "key": "ceiling_area",
+        "value": 20,
+        "unit": "M2",
+        "status": "CONFIRMED",
+        "sourceLocators": [
+          {
+            "sourceType": "EXPLICIT_MEASUREMENT",
+            "sourceEntityId": "measurement-ceiling-20m2",
+            "locator": "quantity.value",
+            "authority": "AUTHORITATIVE"
+          }
+        ]
+      },
+      {
+        "key": "ceiling_included",
+        "value": null,
+        "status": "UNKNOWN",
+        "sourceLocators": [
+          {
+            "sourceType": "TRANSCRIPT_SEGMENT",
+            "sourceEntityId": "transcript-segment-002",
+            "locator": "4100-7000ms",
+            "authority": "AUTHORITATIVE"
+          }
+        ]
+      },
+      {
+        "key": "door_frames_to_protect",
+        "value": 2,
+        "unit": "STK",
+        "status": "CONFIRMED",
+        "sourceLocators": [
+          {
+            "sourceType": "TRANSCRIPT_SEGMENT",
+            "sourceEntityId": "transcript-segment-003",
+            "locator": "7000-9300ms",
+            "authority": "AUTHORITATIVE"
+          }
+        ]
+      },
+      {
+        "key": "substrate_sound",
+        "value": null,
+        "status": "UNKNOWN",
+        "sourceLocators": [
+          {
+            "sourceType": "TRANSCRIPT_SEGMENT",
+            "sourceEntityId": "transcript-segment-004",
+            "locator": "9300-11800ms",
+            "authority": "AUTHORITATIVE"
+          }
+        ]
+      }
+    ],
+    "missingFields": ["ceiling_included", "substrate_sound"]
+  }
+}

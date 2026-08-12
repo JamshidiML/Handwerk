@@ -96,6 +96,26 @@ npm run services:down
 
 This retains named volumes. To deliberately destroy all local PostgreSQL and object-storage state, run Docker Compose with `down --volumes` only after confirming no needed synthetic evidence remains. There is no automated backup/restore promise for this internal slice.
 
+## E2E Safety Contract
+
+The E2E adapter is an integration dependency. Its server implementation must require test mode, an explicit server-side E2E flag, and `x-handwerk-e2e-token`; it must fail closed in production, reset only isolated synthetic storage, and never log raw fixtures, media, signed URLs, or tokens.
+
+Fixture-only validation works before the adapter is integrated:
+
+```sh
+npm --prefix tests/e2e run test:fixtures
+npm --prefix tests/e2e run test:list
+```
+
+Once the local adapter is present, run the browser suite against the local server:
+
+```sh
+HANDWERK_E2E_INTEGRATED=1 \
+HANDWERK_E2E_TEST_TOKEN='<local-test-token>' \
+HANDWERK_E2E_BASE_URL=http://127.0.0.1:3000 \
+npm --prefix tests/e2e run test
+```
+
 ## Production Blockers
 
 Before any production decision, add independently verified authentication, managed secrets and encryption keys, encrypted backup/restore with restore drills, retention enforcement, regional hosting and subprocessors, remote telemetry controls, alerting/on-call ownership, incident response, penetration testing, and qualified legal/privacy review. Local Compose and local metrics are not substitutes for those controls.

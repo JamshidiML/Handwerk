@@ -1,0 +1,60 @@
+{
+  "synthetic": true,
+  "fixtureSetId": "handwerk-synthetic-v1",
+  "scenarios": {
+    "canonical-capture": {
+      "description": "Canonical records before evidence capture and extraction",
+      "initialState": "CAPTURING"
+    },
+    "canonical-needs-clarification": {
+      "description": "Canonical extraction with both critical questions open",
+      "initialState": "NEEDS_CLARIFICATION"
+    },
+    "canonical-ready-review": {
+      "description": "Canonical answers applied and ceiling excluded",
+      "initialState": "READY_FOR_REVIEW"
+    },
+    "canonical-approved": {
+      "description": "Revision 2 has a current human approval",
+      "initialState": "APPROVED"
+    },
+    "unknown-mapping": {
+      "description": "A synthetic extracted work item has no approved mapping",
+      "initialState": "NEEDS_CLARIFICATION"
+    },
+    "invalid-model-output": {
+      "description": "The provider returns extraction/invalid-model-output.json",
+      "initialState": "PROCESSING"
+    },
+    "hallucinated-code": {
+      "description": "The provider returns extraction/hallucinated-code.json",
+      "initialState": "PROCESSING"
+    },
+    "photo-only-measurement": {
+      "description": "Only context-only photo evidence claims an area",
+      "initialState": "NEEDS_CLARIFICATION"
+    },
+    "prompt-injection": {
+      "description": "The transcript contains extraction/prompt-injection-transcript.json",
+      "initialState": "PROCESSING"
+    },
+    "stale-approval": {
+      "description": "Draft current revision is 3 while approval is bound to revision 2",
+      "initialState": "READY_FOR_REVIEW"
+    },
+    "malicious-csv": {
+      "description": "Approved line description contains security/malicious-csv.json fields",
+      "initialState": "APPROVED"
+    },
+    "data-rights": {
+      "description": "Canonical project is available for scoped data export and confirmed demo deletion",
+      "initialState": "APPROVED"
+    }
+  },
+  "faults": {
+    "UPLOAD_ONCE": "The next evidence upload returns a recoverable 503 without persisting partial metadata.",
+    "EXTRACTION_INVALID_OUTPUT_ONCE": "The next extraction returns schema-invalid output and fails safe.",
+    "EXPORT_CSV_ONCE": "The next CSV export returns a recoverable 503 without changing approval.",
+    "EXPORT_PDF_ONCE": "The next PDF export returns a recoverable 503 without changing approval."
+  }
+}

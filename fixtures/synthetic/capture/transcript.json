@@ -1,0 +1,39 @@
+{
+  "synthetic": true,
+  "voiceNoteId": "voice-note-westblick-001",
+  "language": "de-DE",
+  "segments": [
+    {
+      "id": "transcript-segment-001",
+      "organisationId": "org-westblick",
+      "startMs": 0,
+      "endMs": 4100,
+      "text": "Synthetischer Testfall: Die Wände im Wohnzimmer sollen zweimal weiß gestrichen werden.",
+      "humanEdited": false
+    },
+    {
+      "id": "transcript-segment-002",
+      "organisationId": "org-westblick",
+      "startMs": 4100,
+      "endMs": 7000,
+      "text": "Ob die Decke mitgestrichen werden soll, ist noch offen.",
+      "humanEdited": false
+    },
+    {
+      "id": "transcript-segment-003",
+      "organisationId": "org-westblick",
+      "startMs": 7000,
+      "endMs": 9300,
+      "text": "Zwei Türrahmen müssen geschützt werden.",
+      "humanEdited": false
+    },
+    {
+      "id": "transcript-segment-004",
+      "organisationId": "org-westblick",
+      "startMs": 9300,
+      "endMs": 11800,
+      "text": "Der Zustand des Untergrunds wurde noch nicht bestätigt.",
+      "humanEdited": false
+    }
+  ]
+}

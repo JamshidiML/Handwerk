@@ -1,0 +1,15 @@
+{
+  "synthetic": true,
+  "id": "voice-note-westblick-001",
+  "organisationId": "org-westblick",
+  "siteVisitId": "visit-wohnzimmer-001",
+  "evidenceAssetId": "asset-audio-westblick-001",
+  "filename": "synthetic-site-note.wav",
+  "mediaType": "audio/wav",
+  "transcriptFallback": false,
+  "transcriptStatus": "READY",
+  "fixtureSemantics": "Generated tones stand in for a voice recording; deterministic transcription uses capture/transcript.json.",
+  "createdAt": "2026-08-12T08:03:00.000Z",
+  "updatedAt": "2026-08-12T08:03:00.000Z",
+  "version": 1
+}
