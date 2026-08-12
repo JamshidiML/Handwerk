@@ -58,6 +58,7 @@ export class MediaUploadService {
   readonly #delay: NonNullable<MediaUploadServiceOptions["delay"]>;
   readonly #logger: SafeMediaLogger;
   readonly #maxAttempts: number;
+  readonly #scopeLocks = new Map<string, Promise<void>>();
   readonly #storage: PrivateObjectStorage;
   readonly #storedCounts = new Map<string, number>();
 
@@ -82,6 +83,38 @@ export class MediaUploadService {
       readonly onProgress?: MediaProgressListener;
       readonly signal?: AbortSignal;
     } = {},
+  ): Promise<IngestedMedia> {
+    const scopeKey = [
+      context.organisationId,
+      context.siteVisitId,
+      candidate.kind,
+    ].join(":");
+    const previous = this.#scopeLocks.get(scopeKey) ?? Promise.resolve();
+    let release: (() => void) | undefined;
+    const lock = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const queued = previous.then(() => lock);
+    this.#scopeLocks.set(scopeKey, queued);
+
+    await previous;
+    try {
+      return await this.#ingestWithRetry(candidate, context, options);
+    } finally {
+      release?.();
+      if (this.#scopeLocks.get(scopeKey) === queued) {
+        this.#scopeLocks.delete(scopeKey);
+      }
+    }
+  }
+
+  async #ingestWithRetry(
+    candidate: MediaUploadCandidate,
+    context: MediaUploadContext,
+    options: {
+      readonly onProgress?: MediaProgressListener;
+      readonly signal?: AbortSignal;
+    },
   ): Promise<IngestedMedia> {
     let attempt = 1;
     let retryObjectKey: string | undefined;

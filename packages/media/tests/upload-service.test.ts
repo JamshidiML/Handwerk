@@ -120,6 +120,26 @@ describe("media upload service", () => {
     expect(storage.puts).toHaveLength(1);
   });
 
+  it("serializes simultaneous duplicates before storage", async () => {
+    const storage = new FakePrivateStorage();
+    const service = new MediaUploadService(storage, {
+      createObjectKey: (kind, extension) =>
+        `private/evidence/${kind.toLowerCase()}/01/${OBJECT_UUID}.${extension}`,
+    });
+    const candidate = await photoCandidate();
+
+    const [first, second] = await Promise.all([
+      service.ingest(candidate, context("request-concurrent-1")),
+      service.ingest(candidate, context("request-concurrent-2")),
+    ]);
+
+    expect([first.status, second.status].sort()).toEqual([
+      "DUPLICATE",
+      "STORED",
+    ]);
+    expect(storage.puts).toHaveLength(1);
+  });
+
   it("does not deduplicate across organisations", async () => {
     const storage = new FakePrivateStorage();
     let sequence = 0;
