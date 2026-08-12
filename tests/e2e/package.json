@@ -1,0 +1,12 @@
+{
+  "name": "@handwerk/e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "playwright test --config=playwright.config.ts",
+    "test:list": "playwright test --config=playwright.config.ts --list",
+    "test:fixtures": "playwright test --config=playwright.config.ts --project=fixture-contract",
+    "typecheck": "tsc --project tsconfig.json"
+  }
+}

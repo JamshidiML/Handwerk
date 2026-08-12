@@ -1,0 +1,4 @@
+Positionsnummer,Artikelcode,Beschreibung,Menge,Einheit,Einzelpreis_EUR,Netto_EUR,Steuersatz_Prozent,Steuer_EUR,Brutto_EUR,Ursprung
+1,MAL-WAND-2X,Wände zweimal weiß streichen,52.00,M2,12.50,650.00,19.00,123.50,773.50,EDITED
+2,SCH-TUER-RAHMEN,Türrahmen abkleben und schützen,2.00,STK,8.50,17.00,19.00,3.23,20.23,CONFIRMED
+SUMME,,,,,,667.00,,126.73,793.73,

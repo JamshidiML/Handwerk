@@ -1,0 +1,69 @@
+{
+  "synthetic": true,
+  "fixtureId": "canonical-export-expectations",
+  "revision": 2,
+  "filenames": {
+    "pdf": "SYNTHETISCH-Angebot-Wohnzimmer-Bochum-R2.pdf",
+    "csv": "SYNTHETISCH-Angebot-Wohnzimmer-Bochum-R2.csv",
+    "projectData": "SYNTHETISCH-Projektdaten-Wohnzimmer-Bochum.json"
+  },
+  "mediaTypes": {
+    "pdf": "application/pdf",
+    "csv": "text/csv; charset=utf-8",
+    "projectData": "application/json"
+  },
+  "totalsMinor": {
+    "net": 66700,
+    "tax": 12673,
+    "gross": 79373
+  },
+  "csv": {
+    "delimiter": ",",
+    "headers": [
+      "Positionsnummer",
+      "Artikelcode",
+      "Beschreibung",
+      "Menge",
+      "Einheit",
+      "Einzelpreis_EUR",
+      "Netto_EUR",
+      "Steuersatz_Prozent",
+      "Steuer_EUR",
+      "Brutto_EUR",
+      "Ursprung"
+    ],
+    "expectedItemCodes": ["MAL-WAND-2X", "SCH-TUER-RAHMEN"],
+    "forbiddenItemCodes": ["MAL-DECKE-2X", "AI-SPEZIAL-999"]
+  },
+  "pdf": {
+    "minimumBytes": 1000,
+    "requiredVisibleStrings": [
+      "SYNTHETISCHER ENTWURF",
+      "Malerbetrieb Westblick GmbH",
+      "Anna Becker",
+      "MAL-WAND-2X",
+      "SCH-TUER-RAHMEN",
+      "793,73 EUR"
+    ],
+    "forbiddenVisibleStrings": [
+      "AI-SPEZIAL-999",
+      "storage/",
+      "system prompt",
+      "provider payload"
+    ]
+  },
+  "projectDataRequiredTopLevelKeys": [
+    "contractVersion",
+    "exportedAt",
+    "organisation",
+    "customer",
+    "project",
+    "siteVisit",
+    "evidence",
+    "measurements",
+    "facts",
+    "questions",
+    "draft",
+    "audit"
+  ]
+}

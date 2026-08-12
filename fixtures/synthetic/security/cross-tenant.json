@@ -1,0 +1,22 @@
+{
+  "synthetic": true,
+  "actor": {
+    "userId": "user-demo-fachkraft",
+    "organisationId": "org-westblick"
+  },
+  "target": {
+    "organisationId": "org-synthetic-nord",
+    "organisationDisplayName": "SYNTHETISCHER Fremdbetrieb Nord",
+    "projectId": "project-cross-tenant-nord",
+    "projectDisplayName": "SYNTHETISCHES Fremdprojekt"
+  },
+  "expected": {
+    "httpStatus": 404,
+    "apiErrorCode": "FORBIDDEN_OR_NOT_FOUND",
+    "mustNotReveal": [
+      "org-synthetic-nord",
+      "SYNTHETISCHER Fremdbetrieb Nord",
+      "SYNTHETISCHES Fremdprojekt"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "synthetic": true,
+  "fixtureId": "invalid-model-output-missing-citations",
+  "modelOutput": {
+    "contractVersion": "handwerk.vertical-slice.v1",
+    "facts": [
+      {
+        "key": "wall_area",
+        "value": 52,
+        "unit": "M2",
+        "status": "CONFIRMED"
+      }
+    ],
+    "missingFields": []
+  },
+  "expected": {
+    "status": "FAILED_SAFE",
+    "apiErrorCode": "FAILED_SAFE",
+    "recoverable": true,
+    "pricedLinesCreated": 0
+  }
+}

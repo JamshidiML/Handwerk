@@ -1,0 +1,26 @@
+{
+  "synthetic": true,
+  "fixtureId": "spreadsheet-formula-prefixes",
+  "fields": [
+    {
+      "input": "=HYPERLINK(\"https://example.invalid/synthetic\",\"SYNTHETISCH\")",
+      "expectedCell": "'=HYPERLINK(\"https://example.invalid/synthetic\",\"SYNTHETISCH\")"
+    },
+    {
+      "input": "+1+1",
+      "expectedCell": "'+1+1"
+    },
+    {
+      "input": "-2+3",
+      "expectedCell": "'-2+3"
+    },
+    {
+      "input": "@SUM(1,1)",
+      "expectedCell": "'@SUM(1,1)"
+    }
+  ],
+  "expected": {
+    "formulaCapableCells": 0,
+    "csvStillParseable": true
+  }
+}

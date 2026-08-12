@@ -1,0 +1,31 @@
+{
+  "synthetic": true,
+  "measurements": [
+    {
+      "id": "measurement-wall-52m2",
+      "organisationId": "org-westblick",
+      "siteVisitId": "visit-wohnzimmer-001",
+      "label": "Wandfläche",
+      "context": "Wohnzimmer",
+      "quantity": { "value": "52", "unit": "M2" },
+      "authority": "AUTHORITATIVE",
+      "confirmedByUserId": "user-demo-fachkraft",
+      "createdAt": "2026-08-12T08:04:00.000Z",
+      "updatedAt": "2026-08-12T08:04:00.000Z",
+      "version": 1
+    },
+    {
+      "id": "measurement-ceiling-20m2",
+      "organisationId": "org-westblick",
+      "siteVisitId": "visit-wohnzimmer-001",
+      "label": "Deckenfläche",
+      "context": "Wohnzimmer",
+      "quantity": { "value": "20", "unit": "M2" },
+      "authority": "AUTHORITATIVE",
+      "confirmedByUserId": "user-demo-fachkraft",
+      "createdAt": "2026-08-12T08:04:30.000Z",
+      "updatedAt": "2026-08-12T08:04:30.000Z",
+      "version": 1
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "synthetic": true,
+  "draft": {
+    "id": "offer-draft-westblick-001",
+    "organisationId": "org-westblick",
+    "projectId": "project-wohnzimmer-bochum",
+    "state": "APPROVED",
+    "currentRevision": 2,
+    "approvedRevision": 2,
+    "createdAt": "2026-08-12T08:09:00.000Z",
+    "updatedAt": "2026-08-12T08:12:00.000Z",
+    "version": 2
+  },
+  "revision": {
+    "id": "offer-revision-westblick-002",
+    "organisationId": "org-westblick",
+    "offerDraftId": "offer-draft-westblick-001",
+    "revision": 2,
+    "lines": [
+      {
+        "id": "offer-line-wall-001",
+        "organisationId": "org-westblick",
+        "priceBookItemId": "price-item-wall-2x",
+        "itemCode": "MAL-WAND-2X",
+        "description": "Wände zweimal weiß streichen",
+        "quantity": { "value": "52", "unit": "M2" },
+        "unitPrice": { "currency": "EUR", "minor": 1250 },
+        "netTotal": { "currency": "EUR", "minor": 65000 },
+        "taxCategory": "STANDARD_19",
+        "taxRateBasisPoints": 1900,
+        "taxTotal": { "currency": "EUR", "minor": 12350 },
+        "grossTotal": { "currency": "EUR", "minor": 77350 },
+        "calculation": "52 M2 x 12,50 EUR = 650,00 EUR netto",
+        "citations": [
+          {
+            "id": "citation-line-wall-measurement",
+            "organisationId": "org-westblick",
+            "sourceType": "EXPLICIT_MEASUREMENT",
+            "sourceEntityId": "measurement-wall-52m2",
+            "locator": "quantity.value",
+            "extractionVersion": "deterministic-fixture-v1",
+            "explanation": "Die Fachkraft hat 52 m² Wandfläche ausdrücklich eingegeben.",
+            "authority": "AUTHORITATIVE"
+          },
+          {
+            "id": "citation-line-wall-transcript",
+            "organisationId": "org-westblick",
+            "sourceType": "TRANSCRIPT_SEGMENT",
+            "sourceEntityId": "transcript-segment-001",
+            "locator": "0-4100ms",
+            "extractionVersion": "deterministic-fixture-v1",
+            "explanation": "Das Transkript nennt zwei weiße Anstriche.",
+            "authority": "AUTHORITATIVE"
+          }
+        ],
+        "risk": "CONFIRMED",
+        "origin": "EDITED"
+      },
+      {
+        "id": "offer-line-door-001",
+        "organisationId": "org-westblick",
+        "priceBookItemId": "price-item-door-protection",
+        "itemCode": "SCH-TUER-RAHMEN",
+        "description": "Türrahmen abkleben und schützen",
+        "quantity": { "value": "2", "unit": "STK" },
+        "unitPrice": { "currency": "EUR", "minor": 850 },
+        "netTotal": { "currency": "EUR", "minor": 1700 },
+        "taxCategory": "STANDARD_19",
+        "taxRateBasisPoints": 1900,
+        "taxTotal": { "currency": "EUR", "minor": 323 },
+        "grossTotal": { "currency": "EUR", "minor": 2023 },
+        "calculation": "2 STK x 8,50 EUR = 17,00 EUR netto",
+        "citations": [
+          {
+            "id": "citation-line-door-transcript",
+            "organisationId": "org-westblick",
+            "sourceType": "TRANSCRIPT_SEGMENT",
+            "sourceEntityId": "transcript-segment-003",
+            "locator": "7000-9300ms",
+            "extractionVersion": "deterministic-fixture-v1",
+            "explanation": "Das Transkript nennt zwei zu schützende Türrahmen.",
+            "authority": "AUTHORITATIVE"
+          }
+        ],
+        "risk": "CONFIRMED",
+        "origin": "CONFIRMED"
+      }
+    ],
+    "excludedItems": [
+      {
+        "key": "ceiling_painting",
+        "reason": "Die Fachkraft hat die Decke ausdrücklich ausgeschlossen.",
+        "citations": [
+          {
+            "id": "citation-excluded-ceiling-answer",
+            "organisationId": "org-westblick",
+            "sourceType": "USER_ANSWER",
+            "sourceEntityId": "answer-ceiling-no",
+            "locator": "value=false",
+            "extractionVersion": "deterministic-fixture-v1",
+            "explanation": "Antwort auf die Deckenfrage: Nein.",
+            "authority": "AUTHORITATIVE"
+          }
+        ]
+      }
+    ],
+    "unmatchedItems": [],
+    "netTotal": { "currency": "EUR", "minor": 66700 },
+    "taxTotal": { "currency": "EUR", "minor": 12673 },
+    "grossTotal": { "currency": "EUR", "minor": 79373 },
+    "createdByUserId": "user-demo-fachkraft",
+    "createdAt": "2026-08-12T08:11:00.000Z",
+    "updatedAt": "2026-08-12T08:11:00.000Z",
+    "version": 1
+  },
+  "approval": {
+    "id": "approval-westblick-revision-002",
+    "organisationId": "org-westblick",
+    "offerDraftId": "offer-draft-westblick-001",
+    "revision": 2,
+    "approvedByUserId": "user-demo-fachkraft",
+    "confirmationText": "Ich habe Positionen, Mengen, Preise und Nachweise geprüft.",
+    "approvedAt": "2026-08-12T08:12:00.000Z",
+    "createdAt": "2026-08-12T08:12:00.000Z",
+    "updatedAt": "2026-08-12T08:12:00.000Z",
+    "version": 1
+  }
+}
