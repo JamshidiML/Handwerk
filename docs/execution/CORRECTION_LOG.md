@@ -2,6 +2,6 @@
 
 Use one row per bounded correction cycle. Critical invariant failures block further integration until the owner supplies a regression test and the focused gate passes.
 
-| ID   | Defect and evidence                  | Severity | Owner | Invariant | Required regression test | Exit criterion | Outcome |
-| ---- | ------------------------------------ | -------- | ----- | --------- | ------------------------ | -------------- | ------- |
-| None | No integration correction raised yet | N/A      | N/A   | N/A       | N/A                      | N/A            | Open    |
+| ID      | Defect and evidence                                                                                         | Severity | Owner | Invariant                                                         | Required regression test                                                                                    | Exit criterion                                                                                                                    | Outcome     |
+| ------- | ----------------------------------------------------------------------------------------------------------- | -------- | ----- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| SEC-001 | Same-tenant, foreign-project citations could be copied through a raw offer revision in project-data export. | High     | T08   | Project data export must not disclose another project's evidence. | Inject a same-tenant foreign-project citation and prove the export rejects it or excludes citation content. | Exported offer structures are strictly allowlisted or every included citation is project-scoped and covered by a regression test. | In progress |
