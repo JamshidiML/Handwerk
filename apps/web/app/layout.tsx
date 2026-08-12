@@ -1,24 +1,21 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { AppShell } from "@/src/components/app-shell";
+import { DemoDataProvider } from "@/src/features/customers-projects/demo-data-provider";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Starter Project",
-  description: "A clean starting point for building your site.",
-  icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+  title: {
+    default: "Angebots-Copilot | Malerbetrieb Westblick",
+    template: "%s | Angebots-Copilot",
   },
+  description:
+    "Interne, synthetische Demo für den Angebotsprozess von Malerbetrieb Westblick GmbH.",
+  robots: { index: false, follow: false },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#174c3c",
 };
 
 export default function RootLayout({
@@ -27,11 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="de">
+      <body>
+        <DemoDataProvider>
+          <AppShell>{children}</AppShell>
+        </DemoDataProvider>
       </body>
     </html>
   );
