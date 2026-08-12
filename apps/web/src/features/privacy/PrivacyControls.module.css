@@ -1,0 +1,164 @@
+.section {
+  display: grid;
+  gap: 24px;
+  width: 100%;
+  max-width: 720px;
+  color: #202124;
+}
+
+.headingGroup {
+  display: grid;
+  gap: 6px;
+}
+
+.heading {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.description,
+.consequence,
+.status {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  letter-spacing: 0;
+}
+
+.group {
+  display: grid;
+  gap: 14px;
+  padding-block: 20px;
+  border-top: 1px solid #d8dadd;
+}
+
+.groupTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.danger {
+  color: #8d1c1c;
+}
+
+.consequence {
+  padding: 12px 14px;
+  border-left: 3px solid #b42318;
+  background: #fff5f4;
+  color: #611515;
+}
+
+.checkboxLabel {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: #9f1b1b;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 0.875rem;
+  font-weight: 650;
+}
+
+.field input {
+  min-height: 44px;
+  width: min(100%, 360px);
+  padding: 9px 11px;
+  border: 1px solid #777c84;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #202124;
+  font: inherit;
+  letter-spacing: 0;
+}
+
+.field input:focus-visible,
+.button:focus-visible {
+  outline: 3px solid #1769aa;
+  outline-offset: 2px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 9px 14px;
+  border: 1px solid #4d535a;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #202124;
+  font: inherit;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  background: #f1f3f4;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.deleteButton {
+  border-color: #a42424;
+  background: #a42424;
+  color: #ffffff;
+}
+
+.deleteButton:hover:not(:disabled) {
+  background: #821b1b;
+}
+
+.status {
+  padding: 10px 12px;
+  border-left: 3px solid #2d7d46;
+  background: #f1faf3;
+  color: #1e5a33;
+}
+
+.error {
+  border-left-color: #b42318;
+  background: #fff5f4;
+  color: #8d1c1c;
+}
+
+@media (max-width: 520px) {
+  .actions,
+  .button {
+    width: 100%;
+  }
+}
