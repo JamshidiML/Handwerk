@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "exceptions": [
+    {
+      "package": "image-size",
+      "severity": "high",
+      "nodes": ["apps/web/node_modules/image-size"],
+      "expiresOn": "2026-08-26",
+      "owner": "T09/coordinator",
+      "reason": "Development-only transitive pin from vinext; no patched image-size release exists. Reconcile the direct apps/web vinext version with T02."
+    },
+    {
+      "package": "vinext",
+      "severity": "high",
+      "nodes": ["apps/web/node_modules/vinext"],
+      "expiresOn": "2026-08-26",
+      "owner": "T09/coordinator",
+      "reason": "Development-only parent finding for the exact image-size advisory path; direct apps/web dependency is outside T09 ownership."
+    }
+  ]
+}
