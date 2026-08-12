@@ -14,7 +14,7 @@ Build an internal, synthetic-data-only quotation copilot for the canonical Maler
 - Deployment: prohibited for this execution
 - Data: synthetic fixtures only; no customer data or real site media
 - Contract version: `handwerk.vertical-slice.v1`
-- `BASELINE_SHA`: populated after the bootstrap commit
+- `BASELINE_SHA`: `7632cf2` (`chore: freeze vertical slice contracts`)
 
 ## Baseline Evidence
 
