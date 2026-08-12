@@ -15,6 +15,7 @@ import {
   PROJECT_A,
   PROJECT_B,
   RAW_TRANSCRIPT,
+  USER_A,
   USER_B,
   MemoryAuditStore,
   MemoryPrivacyStore,
@@ -114,6 +115,102 @@ describe("project privacy service", () => {
     await expect(
       service.exportProjectData(createContext(), { projectId: PROJECT_A }),
     ).rejects.toMatchObject({ code: "FORBIDDEN_OR_NOT_FOUND" });
+  });
+
+  it("omits a same-tenant foreign-project citation from a revision export", async () => {
+    const aggregate = privacyStore.aggregates.get(`${ORG_A}:${PROJECT_A}`);
+    if (!aggregate) throw new Error("Synthetic project fixture is missing.");
+    aggregate.draft = {
+      id: "draft-project-a" as EntityId,
+      organisationId: ORG_A,
+      projectId: PROJECT_A,
+      state: "READY_FOR_REVIEW",
+      currentRevision: 1,
+      createdAt: NOW,
+      updatedAt: NOW,
+      version: 1,
+    };
+    aggregate.revision = {
+      id: "revision-project-a" as EntityId,
+      organisationId: ORG_A,
+      offerDraftId: aggregate.draft.id,
+      revision: 1,
+      lines: [
+        {
+          id: "line-project-a" as EntityId,
+          organisationId: ORG_A,
+          priceBookItemId: "pricebook-item-a" as EntityId,
+          itemCode: "MAL-100",
+          description: "Synthetische Position",
+          quantity: { value: "12", unit: "M2" },
+          unitPrice: { currency: "EUR", minor: 4_100 },
+          netTotal: { currency: "EUR", minor: 49_200 },
+          taxCategory: "STANDARD_19",
+          taxRateBasisPoints: 1_900,
+          taxTotal: { currency: "EUR", minor: 9_348 },
+          grossTotal: { currency: "EUR", minor: 58_548 },
+          calculation: "12 * 41,00 EUR",
+          citations: [
+            {
+              id: "citation-foreign-project" as EntityId,
+              organisationId: ORG_A,
+              sourceType: "TRANSCRIPT_SEGMENT",
+              sourceEntityId: "project-other-transcript" as EntityId,
+              locator: "foreign-project-locator-never-export",
+              extractionVersion: "fake-v1",
+              explanation: "foreign-project-explanation-never-export",
+              authority: "CONTEXT_ONLY",
+            },
+          ],
+          risk: "LOW_RISK",
+          origin: "GENERATED",
+        },
+      ],
+      excludedItems: [
+        {
+          key: "foreign-excluded-key-never-export",
+          reason: "foreign-excluded-reason-never-export",
+          citations: [
+            {
+              id: "citation-foreign-excluded" as EntityId,
+              organisationId: ORG_A,
+              sourceType: "TRANSCRIPT_SEGMENT",
+              sourceEntityId:
+                "foreign-excluded-source-never-export" as EntityId,
+              locator: "foreign-excluded-locator-never-export",
+              extractionVersion: "fake-v1",
+              explanation: "foreign-excluded-explanation-never-export",
+              authority: "CONTEXT_ONLY",
+            },
+          ],
+        },
+      ],
+      unmatchedItems: [],
+      netTotal: { currency: "EUR", minor: 49_200 },
+      taxTotal: { currency: "EUR", minor: 9_348 },
+      grossTotal: { currency: "EUR", minor: 58_548 },
+      createdByUserId: USER_A,
+      createdAt: NOW,
+      updatedAt: NOW,
+      version: 1,
+    };
+
+    const download = await service.exportProjectData(createContext(), {
+      projectId: PROJECT_A,
+    });
+    const text = new TextDecoder().decode(download.body);
+    const exported = JSON.parse(text);
+
+    expect(text).toContain("Synthetische Position");
+    expect(text).not.toContain("foreign-project-locator-never-export");
+    expect(text).not.toContain("foreign-project-explanation-never-export");
+    expect(text).not.toContain("project-other-transcript");
+    expect(text).not.toContain("foreign-excluded-locator-never-export");
+    expect(text).not.toContain("foreign-excluded-source-never-export");
+    expect(exported.revision.lines[0]).not.toHaveProperty("citations");
+    expect(exported.revision.lines[0]).not.toHaveProperty("priceBookItemId");
+    expect(exported.revision.excludedItems[0]).not.toHaveProperty("citations");
+    expect(exported.draft).not.toHaveProperty("id");
   });
 
   it("creates a confirmed deletion request only after explicit consequences", async () => {

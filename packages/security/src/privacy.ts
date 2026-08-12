@@ -492,9 +492,9 @@ function createAllowlistedExport(
       blocking: question.blocking,
       status: question.status,
     })),
-    draft: aggregate.draft,
-    revision: aggregate.revision,
-    approval: aggregate.approval,
+    draft: createAllowlistedDraft(aggregate.draft),
+    revision: createAllowlistedRevision(aggregate.revision),
+    approval: createAllowlistedApproval(aggregate.approval),
     audit: aggregate.audit.map((event) => ({
       id: event.id,
       type: event.type,
@@ -502,6 +502,64 @@ function createAllowlistedExport(
       metadata: sanitizeAuditMetadata(event.type, event.metadata),
       correlationId: event.correlationId,
     })),
+  };
+}
+
+function createAllowlistedDraft(draft: OfferDraft | undefined): unknown {
+  if (!draft) return undefined;
+  return {
+    state: draft.state,
+    currentRevision: draft.currentRevision,
+    approvedRevision: draft.approvedRevision,
+    createdAt: draft.createdAt,
+    updatedAt: draft.updatedAt,
+  };
+}
+
+function createAllowlistedRevision(
+  revision: OfferDraftRevision | undefined,
+): unknown {
+  if (!revision) return undefined;
+  return {
+    revision: revision.revision,
+    lines: revision.lines.map((line) => ({
+      itemCode: line.itemCode,
+      description: line.description,
+      quantity: line.quantity,
+      unitPrice: line.unitPrice,
+      netTotal: line.netTotal,
+      taxCategory: line.taxCategory,
+      taxRateBasisPoints: line.taxRateBasisPoints,
+      taxTotal: line.taxTotal,
+      grossTotal: line.grossTotal,
+      calculation: line.calculation,
+      risk: line.risk,
+      origin: line.origin,
+    })),
+    excludedItems: revision.excludedItems.map((item) => ({
+      key: item.key,
+      reason: item.reason,
+    })),
+    unmatchedItems: revision.unmatchedItems.map((item) => ({
+      key: item.key,
+      reason: item.reason,
+    })),
+    netTotal: revision.netTotal,
+    taxTotal: revision.taxTotal,
+    grossTotal: revision.grossTotal,
+    createdAt: revision.createdAt,
+    updatedAt: revision.updatedAt,
+  };
+}
+
+function createAllowlistedApproval(
+  approval: HumanApproval | undefined,
+): unknown {
+  if (!approval) return undefined;
+  return {
+    revision: approval.revision,
+    approvedAt: approval.approvedAt,
+    invalidatedAt: approval.invalidatedAt,
   };
 }
 
