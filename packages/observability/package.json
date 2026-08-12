@@ -1,0 +1,21 @@
+{
+  "name": "@handwerk/observability",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./config": "./src/config.ts",
+    "./correlation": "./src/correlation.ts",
+    "./health": "./src/health.ts",
+    "./logger": "./src/logger.ts",
+    "./metrics": "./src/metrics.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "lint": "eslint src tests",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run"
+  }
+}
