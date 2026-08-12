@@ -215,10 +215,11 @@ export function validateSafeText(
       },
     ];
   }
-  if (
-    normalized.length > maxLength ||
-    /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(normalized)
-  ) {
+  // eslint-disable-next-line no-control-regex -- price-book text must reject C0 controls.
+  const hasControlCharacter = /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(
+    normalized,
+  );
+  if (normalized.length > maxLength || hasControlCharacter) {
     return [
       {
         code: "INVALID_TEXT",

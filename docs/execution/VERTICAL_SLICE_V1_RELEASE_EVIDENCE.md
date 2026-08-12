@@ -1,36 +1,26 @@
 # Vertical Slice V1 Release Evidence
 
-## Pre-Integration Record
+## Integrated Local Record
 
-| Item                           | Evidence                                                                 | Status                                                          |
-| ------------------------------ | ------------------------------------------------------------------------ | --------------------------------------------------------------- |
-| Fixture set                    | `fixtures/synthetic/`, `fixtureSetId: handwerk-synthetic-v1`             | Implemented                                                     |
-| Fixture contract               | `tests/e2e/fixture-pack.spec.ts`                                         | Implemented; execution pending local install                    |
-| Browser acceptance harness     | `tests/e2e/canonical-journey.spec.ts` and `recovery-and-safety.spec.ts`  | Implemented; execution blocked on merged product + test adapter |
-| Demo walkthrough               | `docs/demo/VERTICAL_SLICE_V1_DEMO_SCRIPT.md`                             | Implemented                                                     |
-| Local operations guidance      | `docs/operations/LOCAL_RUNBOOK.md`, `docs/operations/TROUBLESHOOTING.md` | Implemented; T09 commands remain integration inputs             |
-| Traceability                   | `docs/execution/VERTICAL_SLICE_V1_TRACEABILITY_MATRIX.md`                | Implemented; critical rows remain deferred                      |
-| Rendered PDF/screenshots       | none committed                                                           | Deferred until integrated synthetic run                         |
-| CSV/PDF/UI reconciliation      | golden CSV and expectations are committed                                | Deferred until T07 export integration                           |
-| Redacted logs/metrics evidence | none yet                                                                 | Deferred to T08/T09 integrated environment                      |
+| Item                       | Evidence                                                                                                               | Result                                                                    |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Synthetic fixture contract | `npm run test:e2e:fixtures`                                                                                            | 9 passed                                                                  |
+| Browser acceptance         | `npm run test:e2e` with Playwright-managed local `vinext start`                                                        | 23 passed in 25.7s; desktop and 390px mobile                              |
+| Keyboard and accessibility | Canonical browser spec with first-focus assertion and Axe WCAG 2 A/AA serious/critical filter                          | Passed at both viewport projects                                          |
+| Recovery and safety        | Denied microphone, unresolved approval, invalidated approval, neutral unknown route, deletion acknowledgement          | Passed at both viewport projects                                          |
+| PDF output                 | `packages/exports/fixtures/generated/Angebot-SYN-WB-2026-0007.pdf`                                                     | Rendered and visually inspected as a three-page synthetic offer           |
+| CSV output                 | `packages/exports/fixtures/generated/Angebot-SYN-WB-2026-0007.csv` and `fixtures/synthetic/exports/offer.expected.csv` | Export package tests reconcile deterministic amounts and formula escaping |
+| Security/privacy           | T08 regression for same-tenant foreign-project citation disclosure; privacy UI tests                                   | SEC-001 closed; export uses strict projections                            |
+| Production deployment      | Repository and local commands reviewed                                                                                 | None performed                                                            |
 
-## Required Integration Inputs
+The browser suite uses the deterministic in-memory synthetic workspace. It does not invoke a paid AI provider, test-support HTTP adapter, real customer record, or production service. `test-results/e2e/.last-run.json` reports `passed` with no failed tests.
 
-- T01 synthetic seed/migrations and tenant-scoped state;
-- T02 routes and accessible German UI contract;
-- T03 capture/media lifecycle;
-- T04 deterministic extraction/failure signals;
-- T05 approved mapping/calculation actions;
-- T06 clarification/provenance view and state;
-- T07 revision approval, exports, audit, data-rights flows;
-- T08 test-adapter hardening/privacy assertions;
-- T09 root E2E workspace, lockfile, local services, and CI wiring.
+## Remaining Final Gate
 
-## Release Blockers At This Stage
+The local integrated browser run is complete. The coordinator still records the final clean-checkout install, full root quality/test gates, clean PostgreSQL migration/seed evidence, dependency audit, secret scan, and redaction inspection separately before declaring the internal slice complete.
 
-1. The complete canonical journey has not run against an integrated fresh seed.
-2. The test-support adapter does not yet exist in this worktree and must be guarded server-side.
-3. Browser, accessibility, PDF render, CSV parser, logs/redaction, and clean-checkout evidence are absent.
-4. No integrated quality score can be truthfully calculated.
+## Deliberate Limits
 
-This document is intentionally evidence-oriented: it records what exists and what still requires execution, rather than representing a pre-integration branch as release-ready.
+- This is an internal synthetic vertical slice, not a production deployment or legal/privacy certification.
+- Demo state is intentionally in-memory. A confirmed demo deletion removes the active browser-session project; refresh restores the seeded fixture.
+- Deterministic synthetic analysis replaces any paid or live AI integration.

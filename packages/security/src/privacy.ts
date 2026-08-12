@@ -18,7 +18,7 @@ import type {
   VoiceNote,
 } from "@handwerk/contracts";
 
-import { AuditService, sanitizeAuditMetadata } from "./audit";
+import { sanitizeAuditMetadata, type AuditService } from "./audit";
 import {
   assertCapability,
   assertTenantResource,

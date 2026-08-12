@@ -83,9 +83,10 @@ describe("approved PDF and CSV export", () => {
 
   it("denies service generation for an unapproved current revision", async () => {
     const input = createSyntheticApprovedExportInput();
-    const { approval: _approval, ...inputWithoutApproval } = input;
-    const { approvedRevision: _approvedRevision, ...draftWithoutApproval } =
-      input.draft;
+    const inputWithoutApproval = { ...input };
+    delete inputWithoutApproval.approval;
+    const draftWithoutApproval = { ...input.draft };
+    delete draftWithoutApproval.approvedRevision;
     await expect(
       new ApprovedOfferExportService(new InMemoryExportArtifactStore()).create({
         ...inputWithoutApproval,

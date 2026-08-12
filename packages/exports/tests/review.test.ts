@@ -15,8 +15,8 @@ const editedAt = "2026-08-12T10:00:00.000Z" as IsoDateTime;
 describe("revision-bound approval", () => {
   it("blocks unapproved, stale, invalidated, and unresolved exports", () => {
     const input = createSyntheticApprovedExportInput();
-    const { approvedRevision: _approvedRevision, ...draftWithoutApproval } =
-      input.draft;
+    const draftWithoutApproval = { ...input.draft };
+    delete draftWithoutApproval.approvedRevision;
     const unapproved = getExportDecision({
       draft: { ...draftWithoutApproval, state: "READY_FOR_REVIEW" },
       revision: input.revision,
@@ -65,8 +65,8 @@ describe("revision-bound approval", () => {
 
   it("requires explicit confirmation before creating approval", () => {
     const input = createSyntheticApprovedExportInput();
-    const { approvedRevision: _approvedRevision, ...withoutApproval } =
-      input.draft;
+    const withoutApproval = { ...input.draft };
+    delete withoutApproval.approvedRevision;
     const readyDraft = {
       ...withoutApproval,
       state: "READY_FOR_REVIEW" as const,

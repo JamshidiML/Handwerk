@@ -1,4 +1,14 @@
 import type { ProjectFeatureSlots } from "@/src/features/customers-projects/integration-slots";
+import {
+  CaptureWorkflowFeature,
+  ClarificationWorkflowFeature,
+  OfferWorkflowFeature,
+  PrivacyWorkflowFeature,
+} from "@/src/features/integration/project-workflow";
 
-// Integration owner wires peer-owned feature components here after branch merges.
-export const projectFeatureSlots: ProjectFeatureSlots = {};
+export const projectFeatureSlots: ProjectFeatureSlots = {
+  Capture: CaptureWorkflowFeature,
+  Clarifications: ClarificationWorkflowFeature,
+  OfferReview: OfferWorkflowFeature,
+  Privacy: PrivacyWorkflowFeature,
+};

@@ -95,12 +95,14 @@ function extensionOf(filename: string): string {
 
 export function sanitiseDisplayFilename(filename: string): string {
   const normalised = filename.normalize("NFKC").trim();
+  // eslint-disable-next-line no-control-regex -- reject control characters and path separators.
+  const hasUnsafeCharacter = /[\0-\x1f\x7f/\\]/.test(normalised);
   if (
     normalised.length === 0 ||
     normalised.length > MEDIA_POLICY.maxFilenameLength ||
     normalised === "." ||
     normalised === ".." ||
-    /[\0-\x1f\x7f/\\]/.test(normalised)
+    hasUnsafeCharacter
   ) {
     throw new MediaError(
       "FILENAME_INVALID",

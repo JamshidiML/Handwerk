@@ -20,7 +20,9 @@ export const CSV_HEADERS = [
 ] as const;
 
 function neutralizeSpreadsheetFormula(value: string): string {
+  // eslint-disable-next-line no-control-regex -- NUL is never safe in exported tabular text.
   const normalized = value.replace(/\u0000/g, " ");
+  // eslint-disable-next-line no-control-regex -- leading whitespace includes tab and line controls.
   return /^[\u0009\u000a\u000d\u0020]*[=+\-@]/.test(normalized)
     ? `'${normalized}`
     : normalized;

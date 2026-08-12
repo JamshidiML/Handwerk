@@ -1,11 +1,10 @@
-import type { EntityId, OrganisationId } from "@handwerk/contracts";
+import type { EntityId } from "@handwerk/contracts";
 import { describe, expect, it, vi } from "vitest";
 
 import {
   CSRF_COOKIE_NAME,
   DEMO_IDENTITY_HEADER_NAME,
   SESSION_COOKIE_NAME,
-  SecurityBoundaryError,
   createTenantAuthorizationContext,
   loadTenantResource,
   toSafeApiError,

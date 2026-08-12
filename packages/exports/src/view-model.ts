@@ -7,11 +7,14 @@ import type {
 } from "./types";
 
 function limitText(value: string, maxLength: number): string {
-  return value
-    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .slice(0, maxLength);
+  return (
+    value
+      // eslint-disable-next-line no-control-regex -- exported text never carries C0 controls.
+      .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, maxLength)
+  );
 }
 
 function requireText(value: string, label: string, maxLength: number): string {

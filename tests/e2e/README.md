@@ -1,52 +1,35 @@
 # Vertical Slice V1 E2E
 
-This suite is an integration contract for peer-owned UI and services that are not present at T10's baseline. Fixture validation runs immediately; browser journeys are collected but skipped unless the integration adapter is explicitly enabled.
+The browser suite exercises the integrated application with an in-memory, synthetic-only `DemoDataProvider`. Every Playwright browser context begins with the deterministic seeded fixture state; no test-support HTTP routes, test token, external AI provider, customer record, or production deployment is involved.
 
 ## Commands
 
-```bash
-# Baseline-safe: validate fixture relationships and compile/discover all specs.
-npx playwright test --config=tests/e2e/playwright.config.ts
-npx playwright test --config=tests/e2e/playwright.config.ts --list
+```sh
+# Fixture relationships only; no app server needed.
+npm run test:e2e:fixtures
 
-# Integrated app already running.
-HANDWERK_E2E_INTEGRATED=1 \
-HANDWERK_E2E_TEST_TOKEN='<local-test-token>' \
+# Build and let Playwright manage the built local app on port 3000.
+npm run build
+npm run test:e2e
+
+# Run against an already-running local built app.
 HANDWERK_E2E_BASE_URL=http://127.0.0.1:3000 \
-npx playwright test --config=tests/e2e/playwright.config.ts
-
-# Let Playwright start the app.
-HANDWERK_E2E_INTEGRATED=1 \
-HANDWERK_E2E_TEST_TOKEN='<local-test-token>' \
-HANDWERK_E2E_START_SERVER=1 \
 npx playwright test --config=tests/e2e/playwright.config.ts
 ```
 
-Do not enable the adapter against a deployed or production-like environment.
-
-## Required Test-Support Adapter
-
-The integrated server must expose these endpoints only when `NODE_ENV=test` and an explicit server-side E2E flag are both set. It must hard-fail startup if enabled in production and authenticate every request using `x-handwerk-e2e-token`.
-
-| Method   | Endpoint                         | Purpose                                                         |
-| -------- | -------------------------------- | --------------------------------------------------------------- |
-| `POST`   | `/api/test-support/e2e/scenario` | Reset isolated storage and seed `{ fixtureSetId, scenario }`    |
-| `POST`   | `/api/test-support/e2e/fault`    | Enable one named deterministic fault for the current test actor |
-| `DELETE` | `/api/test-support/e2e/fault`    | Clear deterministic faults                                      |
-
-The response to scenario seeding is `{ "ok": true, "fixtureSetId": "handwerk-synthetic-v1", "scenario": "..." }`. Seed and fault operations must never exist in normal application routes, log raw fixture content, or bypass tenant checks exercised by the product APIs.
+The managed browser command starts `@handwerk/web` with `vinext start`; it therefore needs a current build. Locally it can reuse an existing server. CI builds first and always starts the local process from the pinned lockfile.
 
 ## Route And Accessibility Contract
 
-Route assumptions are centralized in `helpers/integration.ts`; accessible names and actions are centralized in `pages/quote-copilot.page.ts`. The peer UI should provide:
+Route assumptions are centralized in `helpers/integration.ts`; accessible names and actions are centralized in `pages/quote-copilot.page.ts`.
 
-- `/demo`, `/demo/projects/:projectId`, `/demo/projects/:projectId/capture`, and `/demo/projects/:projectId/offer`;
-- native headings, links, buttons, labelled file/measurement inputs, fieldsets for canonical questions, tables with accessible names, alerts/statuses, and dialogs;
-- stable German accessible names represented by the page object;
-- no selector dependency on CSS classes, DOM depth, generated IDs, or visual coordinates.
+- `/`, `/projekte/:projectId`, and `/projekte/:projectId/baustellenbesuch` are the canonical routes.
+- Browser assertions use native headings, links, buttons, labelled controls, status messages, and semantic regions.
+- Tests do not depend on CSS classes, generated IDs, visual coordinates, real data, or external network calls.
+- The canonical journey is exercised at desktop and 390px mobile viewports. The mobile script uses keyboard activation for controls that can sit behind the fixed navigation while scrolling; the corresponding visible flow is also manually checked at that viewport.
 
-During integration, update the centralized adapter only when route or German UI wording intentionally differs. Do not dilute behavioural assertions or replace them with screenshots.
+## Coverage
 
-## Root Tooling Dependency
+`canonical-journey.spec.ts` covers capture, deterministic analysis, the two canonical clarifications, price-book-backed draft, quantity revision, human approval, PDF/CSV download, audit activity, data export, demo deletion, keyboard focus, and Axe serious/critical violations.
 
-At `BASELINE_SHA 7632cf2`, root `npm test:e2e` targets workspace `@handwerk/e2e`, while root workspaces include only `apps/*` and `packages/*`. T09/coordinator must either add `tests/*` as an npm workspace with an owned package manifest or change the root script to invoke this config directly. T10 does not edit the frozen root package or lockfile.
+`recovery-and-safety.spec.ts` covers denied microphone fallback, blocked approval while critical questions remain open, approval invalidation after a commercial edit, neutral unknown-project handling, and explicit deletion acknowledgement. Fixture-contract tests cover synthetic-only labeling, tenant relationships, no photo-derived measurements, safe parsing, approved-price-book-only pricing, CSV formula neutralization, and money reconciliation.

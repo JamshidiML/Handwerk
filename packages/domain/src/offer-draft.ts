@@ -28,7 +28,8 @@ export function assertExpectedVersion(
 function withoutApproval(
   draft: OfferDraft,
 ): Omit<OfferDraft, "approvedRevision"> {
-  const { approvedRevision: _approvedRevision, ...unapproved } = draft;
+  const unapproved = { ...draft };
+  delete unapproved.approvedRevision;
   return unapproved;
 }
 

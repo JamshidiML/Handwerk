@@ -4,6 +4,7 @@ import { validationFailed } from "./errors";
 
 const ENTITY_ID_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/;
 const TOKEN_PATTERN = /^[A-Za-z0-9_-]{32,256}$/;
+// eslint-disable-next-line no-control-regex -- request validation removes C0 controls.
 const CONTROL_CHARACTERS = /[\u0000-\u001f\u007f]/g;
 const PATH_SEPARATORS = /[/\\]+/g;
 const UNSAFE_FILENAME_CHARACTERS = /[^A-Za-z0-9._-]+/g;

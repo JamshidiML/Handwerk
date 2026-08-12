@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { AppShell } from "@/src/components/app-shell";
 import { DemoDataProvider } from "@/src/features/customers-projects/demo-data-provider";
+import { IntegratedWorkflowProvider } from "@/src/features/integration/project-workflow";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -27,7 +28,9 @@ export default function RootLayout({
     <html lang="de">
       <body>
         <DemoDataProvider>
-          <AppShell>{children}</AppShell>
+          <IntegratedWorkflowProvider>
+            <AppShell>{children}</AppShell>
+          </IntegratedWorkflowProvider>
         </DemoDataProvider>
       </body>
     </html>

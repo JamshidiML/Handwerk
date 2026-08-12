@@ -98,22 +98,20 @@ This retains named volumes. To deliberately destroy all local PostgreSQL and obj
 
 ## E2E Safety Contract
 
-The E2E adapter is an integration dependency. Its server implementation must require test mode, an explicit server-side E2E flag, and `x-handwerk-e2e-token`; it must fail closed in production, reset only isolated synthetic storage, and never log raw fixtures, media, signed URLs, or tokens.
+The E2E suite is a synthetic-only, in-memory client workflow. It exposes no test-support HTTP routes and never requires a test token, external AI credential, customer record, or deployed environment. Each Playwright browser context receives a fresh `DemoDataProvider` state.
 
-Fixture-only validation works before the adapter is integrated:
+Fixture-only validation does not start an app server:
 
 ```sh
-npm --prefix tests/e2e run test:fixtures
-npm --prefix tests/e2e run test:list
+npm run test:e2e:fixtures
+npm --workspace @handwerk/e2e run test:list
 ```
 
-Once the local adapter is present, run the browser suite against the local server:
+Run the full browser suite from a current build:
 
 ```sh
-HANDWERK_E2E_INTEGRATED=1 \
-HANDWERK_E2E_TEST_TOKEN='<local-test-token>' \
-HANDWERK_E2E_BASE_URL=http://127.0.0.1:3000 \
-npm --prefix tests/e2e run test
+npm run build
+npm run test:e2e
 ```
 
 ## Production Blockers

@@ -25,15 +25,18 @@ const COLOR = {
 };
 
 function pdfSafeText(value: string): string {
-  return value
-    .normalize("NFC")
-    .replace(/[\u0000-\u001f\u007f]/g, " ")
-    .replace(/[\u00a0\u202f]/g, " ")
-    .replace(/[\u2010-\u2015\u2212]/g, "-")
-    .replace(/[\u2018\u2019]/g, "'")
-    .replace(/[\u201c\u201d]/g, '"')
-    .replace(/\u2026/g, "...")
-    .replace(/[^\u0020-\u007e\u00a1-\u00ff\u20ac]/g, "?");
+  return (
+    value
+      .normalize("NFC")
+      // eslint-disable-next-line no-control-regex -- PDF text must exclude all C0 controls.
+      .replace(/[\u0000-\u001f\u007f]/g, " ")
+      .replace(/[\u00a0\u202f]/g, " ")
+      .replace(/[\u2010-\u2015\u2212]/g, "-")
+      .replace(/[\u2018\u2019]/g, "'")
+      .replace(/[\u201c\u201d]/g, '"')
+      .replace(/\u2026/g, "...")
+      .replace(/[^\u0020-\u007e\u00a1-\u00ff\u20ac]/g, "?")
+  );
 }
 
 function splitLongWord(

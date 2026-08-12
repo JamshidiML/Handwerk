@@ -76,6 +76,9 @@ test("supports the customer-to-project-to-site-visit route journey", async () =>
   assert.match(projectHtml, /52 m²/);
   assert.match(projectHtml, /20 m²/);
   assert.match(projectHtml, /KI-Vorschläge sind ein Arbeitsentwurf/);
+  assert.match(projectHtml, /Soll die Decke mitgestrichen werden/);
+  assert.match(projectHtml, /MAL-WAND-2X/);
+  assert.match(projectHtml, /Projektdaten und Löschung/);
   assert.match(
     projectHtml,
     /href="\/projekte\/project-wohnzimmer-bochum\/baustellenbesuch"/,
@@ -86,7 +89,9 @@ test("supports the customer-to-project-to-site-visit route journey", async () =>
   );
   assert.match(visitHtml, /Besuch geöffnet/);
   assert.match(visitHtml, /Erfassung läuft/);
-  assert.match(visitHtml, /Erfassung vorübergehend nicht verfügbar/);
+  assert.match(visitHtml, /Erfassung und Analyse/);
+  assert.match(visitHtml, /Sprachnotiz/);
+  assert.match(visitHtml, /Messwerte/);
   assert.match(visitHtml, /Fotos dienen ausschließlich als Kontext/);
 });
 

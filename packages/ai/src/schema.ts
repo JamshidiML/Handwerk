@@ -207,10 +207,10 @@ interface FrozenExtractionResultShape {
   missingFields: string[];
 }
 
-const assertFrozenContractCompatibility = <
-  T extends FrozenExtractionResultShape,
->(): void => undefined;
-assertFrozenContractCompatibility<ExtractionResult>();
+const assertFrozenContractCompatibility = (
+  extraction: ExtractionResult,
+): FrozenExtractionResultShape => extraction;
+void assertFrozenContractCompatibility;
 
 export interface SanitisedValidationIssue {
   code: string;

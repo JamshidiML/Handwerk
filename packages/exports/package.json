@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./browser": "./src/browser.ts",
     "./fixtures": "./fixtures/synthetic-offer.ts"
   },
   "dependencies": {

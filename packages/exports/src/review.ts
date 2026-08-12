@@ -478,8 +478,8 @@ export function applyQuantityEdit(
     nextRevisionBase,
     nextRevisionBase.lines,
   );
-  const { approvedRevision: _approvedRevision, ...draftWithoutApproval } =
-    input.draft;
+  const draftWithoutApproval = { ...input.draft };
+  delete draftWithoutApproval.approvedRevision;
   const nextDraft: OfferDraft = {
     ...draftWithoutApproval,
     state: "READY_FOR_REVIEW",

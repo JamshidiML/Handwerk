@@ -99,20 +99,26 @@ export function DemoDataProvider({ children }: { children: ReactNode }) {
       return created;
     };
 
-    const removeProject = (projectId: string) => {
-      if (isCanonicalProject(projectId)) return false;
-      let removed = false;
+    const deleteDemoProject = (projectId: string) => {
+      const exists = workspace.customers.some((entry) =>
+        entry.projects.some(({ project }) => project.id === projectId),
+      );
+      if (!exists) return false;
       setWorkspace((current) => ({
         ...current,
         customers: current.customers.map((entry) => ({
           ...entry,
-          projects: entry.projects.filter(({ project }) => {
-            if (project.id === projectId) removed = true;
-            return project.id !== projectId;
-          }),
+          projects: entry.projects.filter(
+            ({ project }) => project.id !== projectId,
+          ),
         })),
       }));
-      return removed;
+      return true;
+    };
+
+    const removeProject = (projectId: string) => {
+      if (isCanonicalProject(projectId)) return false;
+      return deleteDemoProject(projectId);
     };
 
     const startSiteVisit = (projectId: string): SiteVisit | undefined => {
@@ -158,6 +164,7 @@ export function DemoDataProvider({ children }: { children: ReactNode }) {
       createProject,
       findProject,
       findCustomer,
+      deleteDemoProject,
       removeProject,
       startSiteVisit,
     };

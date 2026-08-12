@@ -1,19 +1,9 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-import { integratedE2E, seedScenario } from "./helpers/integration";
 import { QuoteCopilotPage } from "./pages/quote-copilot.page";
 
 test.describe("canonical quotation journey", () => {
-  test.skip(
-    !integratedE2E,
-    "Requires the local, test-only scenario adapter after integration.",
-  );
-
-  test.beforeEach(async ({ request }) => {
-    await seedScenario(request, "canonical-capture");
-  });
-
   test("captures evidence, resolves uncertainty, approves, exports, and audits", async ({
     page,
   }) => {
@@ -28,8 +18,8 @@ test.describe("canonical quotation journey", () => {
     await quote.expectCanonicalLineItems();
     await quote.makeSafeCommercialEdit();
     await quote.approveCurrentRevision();
-    await quote.downloadExport("PDF exportieren");
-    await quote.downloadExport("CSV exportieren");
+    await quote.downloadExport("PDF herunterladen");
+    await quote.downloadExport("CSV herunterladen");
 
     await expect(
       page.getByRole("heading", { name: "Aktivität" }),
@@ -43,8 +33,11 @@ test.describe("canonical quotation journey", () => {
       "Entwurf freigegeben",
       "Export erstellt",
     ]) {
-      await expect(page.getByText(event)).toBeVisible();
+      await expect(page.getByText(event).first()).toBeVisible();
     }
+
+    await quote.exportProjectData();
+    await quote.deleteCanonicalDemoProject();
   });
 
   test("is keyboard reachable and free of automated serious accessibility violations", async ({

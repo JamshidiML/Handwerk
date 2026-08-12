@@ -40,6 +40,7 @@ export interface DemoDataContextValue extends DemoWorkspace {
   createProject: (input: NewProjectInput) => Project;
   findProject: (projectId: string) => ProjectSummary | undefined;
   findCustomer: (customerId: string) => CustomerSummary | undefined;
+  deleteDemoProject: (projectId: string) => boolean;
   removeProject: (projectId: string) => boolean;
   startSiteVisit: (projectId: string) => SiteVisit | undefined;
 }
