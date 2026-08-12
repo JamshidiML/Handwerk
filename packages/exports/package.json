@@ -1,0 +1,21 @@
+{
+  "name": "@handwerk/exports",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./fixtures": "./fixtures/synthetic-offer.ts"
+  },
+  "dependencies": {
+    "@handwerk/contracts": "0.1.0",
+    "pdf-lib": "1.17.1"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --pool=forks --maxWorkers=1",
+    "test:unit": "vitest run --pool=forks --maxWorkers=1",
+    "samples": "tsx scripts/generate-samples.ts"
+  }
+}
