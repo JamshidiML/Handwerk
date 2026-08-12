@@ -1,0 +1,10 @@
+node_modules/
+apps/web/.next/
+apps/web/.vinext/
+apps/web/dist/
+apps/web/build/
+apps/web/public/
+package-lock.json
+docs/execution/CODEX_MASTER_PROMPT_HANDWERK_VERTICAL_SLICE_V1.md
+docs/product/Handwerk_Quote_Copilot_Project_Brief_v0.1.md
+fixtures/synthetic/media/
