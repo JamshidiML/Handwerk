@@ -1,0 +1,40 @@
+{
+  "synthetic": true,
+  "offerNumber": "SYN-WB-2026-0007",
+  "revision": 3,
+  "totalsMinor": {
+    "net": 93748,
+    "tax": 17813,
+    "gross": 111561
+  },
+  "artifacts": [
+    {
+      "id": "export-csv-synthetic-1",
+      "organisationId": "org-westblick",
+      "offerDraftId": "offer-synthetic-westblick",
+      "revision": 3,
+      "kind": "CSV",
+      "filename": "Angebot-SYN-WB-2026-0007.csv",
+      "mediaType": "text/csv;charset=utf-8",
+      "checksumSha256": "597430fa32c162214920fc3ea56ed4c0d596dfbeb6fbf8d0542114fc585ba366",
+      "sizeBytes": 7449,
+      "createdAt": "2026-08-12T09:30:00.000Z",
+      "updatedAt": "2026-08-12T09:30:00.000Z",
+      "version": 1
+    },
+    {
+      "id": "export-pdf-synthetic-1",
+      "organisationId": "org-westblick",
+      "offerDraftId": "offer-synthetic-westblick",
+      "revision": 3,
+      "kind": "PDF",
+      "filename": "Angebot-SYN-WB-2026-0007.pdf",
+      "mediaType": "application/pdf",
+      "checksumSha256": "bc62860e815342dfc465533ff1693b4df3fe63fad778955f5a47fd1c61eaed85",
+      "sizeBytes": 12112,
+      "createdAt": "2026-08-12T09:30:00.000Z",
+      "updatedAt": "2026-08-12T09:30:00.000Z",
+      "version": 1
+    }
+  ]
+}
