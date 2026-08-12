@@ -1,0 +1,8 @@
+{
+  "fixtureVersion": "handwerk.ai-replay.v1",
+  "synthetic": true,
+  "fixtureId": "provider-timeout",
+  "response": {
+    "kind": "TIMEOUT"
+  }
+}

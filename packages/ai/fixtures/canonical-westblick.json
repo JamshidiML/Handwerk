@@ -1,0 +1,86 @@
+{
+  "fixtureVersion": "handwerk.ai-replay.v1",
+  "synthetic": true,
+  "fixtureId": "canonical-westblick",
+  "request": {
+    "evidenceRevision": "synthetic-revision-1",
+    "transcriptText": "Die Wände zweimal weiß, zwei Türzargen schützen; Decke und Untergrund noch klären."
+  },
+  "response": {
+    "kind": "OUTPUT",
+    "body": {
+      "contractVersion": "handwerk.vertical-slice.v1",
+      "facts": [
+        {
+          "key": "wall.area",
+          "value": 52,
+          "unit": "M2",
+          "status": "CONFIRMED",
+          "sourceLocators": [
+            {
+              "sourceType": "EXPLICIT_MEASUREMENT",
+              "sourceEntityId": "measurement-wall-area-52",
+              "locator": "measurement:measurement-wall-area-52",
+              "authority": "AUTHORITATIVE"
+            }
+          ]
+        },
+        {
+          "key": "wall.coats",
+          "value": 2,
+          "status": "CONFIRMED",
+          "sourceLocators": [
+            {
+              "sourceType": "TRANSCRIPT_SEGMENT",
+              "sourceEntityId": "transcript-segment-001",
+              "locator": "time:0-4500ms",
+              "authority": "AUTHORITATIVE"
+            }
+          ]
+        },
+        {
+          "key": "ceiling.area",
+          "value": 20,
+          "unit": "M2",
+          "status": "CONFIRMED",
+          "sourceLocators": [
+            {
+              "sourceType": "EXPLICIT_MEASUREMENT",
+              "sourceEntityId": "measurement-ceiling-area-20",
+              "locator": "measurement:measurement-ceiling-area-20",
+              "authority": "AUTHORITATIVE"
+            }
+          ]
+        },
+        {
+          "key": "door_frames.protection_count",
+          "value": 2,
+          "unit": "STK",
+          "status": "CONFIRMED",
+          "sourceLocators": [
+            {
+              "sourceType": "TRANSCRIPT_SEGMENT",
+              "sourceEntityId": "transcript-segment-002",
+              "locator": "time:4500-8000ms",
+              "authority": "AUTHORITATIVE"
+            }
+          ]
+        },
+        {
+          "key": "substrate.condition",
+          "value": null,
+          "status": "UNKNOWN",
+          "sourceLocators": [
+            {
+              "sourceType": "TRANSCRIPT_SEGMENT",
+              "sourceEntityId": "transcript-segment-003",
+              "locator": "time:8000-10500ms",
+              "authority": "AUTHORITATIVE"
+            }
+          ]
+        }
+      ],
+      "missingFields": ["ceiling.included", "substrate.condition"]
+    }
+  }
+}
