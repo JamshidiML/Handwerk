@@ -20,7 +20,9 @@ Root overrides constrain known vulnerable development paths to tested compatible
 - Vite moves within the supported peer ranges. The root lockfile scopes compatible Cloudflare plugin, Wrangler, and Workers types updates to the web workspace so their peer graph remains valid without editing its manifest.
 - Brace expansion moves to its patched CommonJS-compatible release so the ESLint dependency graph remains executable.
 
-The Cloudflare/Vite updates remove eight baseline high findings. `apps/web` still directly pins a Vinext line that pins vulnerable `image-size@2.0.2`; T09 cannot validly override that direct workspace declaration. Two exact development-only findings have an exception through 26 August 2026 in `scripts/config/dependency-audit-policy.json`. Any new path, severity, package, or post-expiry run fails.
+The Cloudflare/Vite updates remove eight baseline high findings. Cycle 1 re-evaluated the remaining exact path: `apps/web` declares development dependency `vinext@0.0.50`, which declares `image-size@2.0.2`. npm audit reports `GHSA-w3rx-r6r6-pgpr` and `GHSA-5p2g-fcmc-qvqq` on that node. The audit-proposed downgrade to `vinext@0.0.45` removes `image-size`, but an isolated clean install fails the current RSC build with missing `@vitejs/plugin-rsc/browser` exports; it is not compatible. The newest published `vinext@1.0.0-beta.5` still declares `image-size@2.0.2`, so no compatible patched route exists.
+
+Two exact development-only findings remain accepted through 2026-08-26 in `scripts/config/dependency-audit-policy.json`. Their affected paths are `apps/web/node_modules/vinext` and `apps/web/node_modules/image-size`; both lockfile entries are development-only. `npm audit --omit=dev --audit-level=high` is the production non-reachability evidence and must remain clean. Any new path, package, severity, or post-expiry run fails closed.
 
 Remove an override when its owning direct package declares a patched version and the full gate passes without it.
 

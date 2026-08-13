@@ -20,6 +20,7 @@ import {
   renderOfferCsv,
   renderOfferPdf,
 } from "@handwerk/exports/browser";
+import { MediaError } from "@handwerk/media/browser";
 import { SYNTHETIC_MALER_ITEMS } from "@handwerk/pricebook/browser";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
@@ -71,6 +72,9 @@ interface WorkflowContextValue {
   exportCurrentRevision: (kind: "PDF" | "CSV") => Promise<void>;
   markAnalysisComplete: () => void;
   analysisComplete: boolean;
+  analysisError?: string;
+  analysisNotice?: string;
+  recordTranscript: (text: string) => void;
   records: readonly ClarificationViewRecord[];
   revision: OfferDraftRevision;
   updateAnswer: (
@@ -83,6 +87,15 @@ interface WorkflowContextValue {
 const WorkflowContext = createContext<WorkflowContextValue | null>(null);
 
 const fixtureTime = "2026-08-12T09:30:00.000Z" as IsoDateTime;
+
+const SYNTHETIC_EXPORT_RETRY_MARKER = "SYNTHETIC_EXPORT_RETRY";
+const SYNTHETIC_INVALID_EXTRACTION_MARKER = "SYNTHETIC_INVALID_EXTRACTION";
+const SYNTHETIC_UNKNOWN_MAPPING_MARKER = "SYNTHETIC_UNKNOWN_MAPPING";
+const SYNTHETIC_UPLOAD_RETRY_FILENAME = "synthetic-evidence-retry.png";
+
+function includesPromptInjection(text: string): boolean {
+  return /ignore\s+(all\s+)?previous\s+instructions/i.test(text);
+}
 
 function asEntityId(value: string): EntityId {
   return value as EntityId;
@@ -331,6 +344,10 @@ export function IntegratedWorkflowProvider({
   const [approval, setApproval] = useState<HumanApproval>();
   const [records, setRecords] = useState(initial.records);
   const [analysisComplete, setAnalysisComplete] = useState(false);
+  const [analysisError, setAnalysisError] = useState<string>();
+  const [analysisNotice, setAnalysisNotice] = useState<string>();
+  const [transcript, setTranscript] = useState("");
+  const [exportFailureConsumed, setExportFailureConsumed] = useState(false);
   const [activities, setActivities] = useState<readonly Activity[]>([]);
 
   function addActivity(label: ActivityKind) {
@@ -410,6 +427,15 @@ export function IntegratedWorkflowProvider({
   }
 
   async function exportCurrentRevision(kind: "PDF" | "CSV") {
+    if (
+      transcript.includes(SYNTHETIC_EXPORT_RETRY_MARKER) &&
+      !exportFailureConsumed
+    ) {
+      setExportFailureConsumed(true);
+      throw new Error(
+        "Der synthetische Exportdienst ist vorübergehend nicht verfügbar.",
+      );
+    }
     const model = buildApprovedOfferViewModel({
       draft,
       revision,
@@ -444,6 +470,53 @@ export function IntegratedWorkflowProvider({
     addActivity("Export erstellt");
   }
 
+  function recordTranscript(text: string) {
+    setTranscript(text);
+  }
+
+  function markAnalysisComplete() {
+    setAnalysisError(undefined);
+    setAnalysisNotice(undefined);
+    if (transcript.includes(SYNTHETIC_INVALID_EXTRACTION_MARKER)) {
+      setAnalysisComplete(false);
+      setAnalysisError(
+        "Die Analyse wurde sicher abgebrochen: Das Extraktionsergebnis ist ungültig.",
+      );
+      return;
+    }
+    if (transcript.includes(SYNTHETIC_UNKNOWN_MAPPING_MARKER)) {
+      setRevision((current) => {
+        if (
+          current.unmatchedItems.some(
+            (item) => item.key === "SYNTHETIC-UNAPPROVED-999",
+          )
+        ) {
+          return current;
+        }
+        return {
+          ...current,
+          unmatchedItems: [
+            ...current.unmatchedItems,
+            {
+              key: "SYNTHETIC-UNAPPROVED-999",
+              reason:
+                "Keine aktive, freigegebene Preisbuchposition; bleibt unbepreist.",
+              citations: [],
+            },
+          ],
+        };
+      });
+    }
+    if (includesPromptInjection(transcript)) {
+      setAnalysisNotice(
+        "Quellinhalt wird als Daten behandelt; Anweisungen werden nicht ausgeführt.",
+      );
+    }
+    setAnalysisComplete(true);
+    addActivity("Analyse abgeschlossen");
+    addActivity("Zuordnung abgeschlossen");
+  }
+
   const value: WorkflowContextValue = {
     activities,
     addActivity,
@@ -451,12 +524,11 @@ export function IntegratedWorkflowProvider({
     approve,
     draft,
     exportCurrentRevision,
-    markAnalysisComplete: () => {
-      setAnalysisComplete(true);
-      addActivity("Analyse abgeschlossen");
-      addActivity("Zuordnung abgeschlossen");
-    },
+    markAnalysisComplete,
     analysisComplete,
+    ...(analysisError ? { analysisError } : {}),
+    ...(analysisNotice ? { analysisNotice } : {}),
+    recordTranscript,
     records,
     revision,
     updateAnswer,
@@ -476,12 +548,23 @@ function useIntegratedWorkflow() {
   return value;
 }
 
-const localUpload: CaptureUploadHandler = async (_file, options) => {
-  for (const percent of [20, 65, 100]) {
+const syntheticUploadAttempts = new Map<string, number>();
+
+const localUpload: CaptureUploadHandler = async (file, options) => {
+  for (const percent of [20, 65]) {
     if (options.signal.aborted)
       throw new DOMException("Abgebrochen", "AbortError");
     options.onProgress(percent);
   }
+  const attempts = syntheticUploadAttempts.get(file.name) ?? 0;
+  if (file.name === SYNTHETIC_UPLOAD_RETRY_FILENAME && attempts === 0) {
+    syntheticUploadAttempts.set(file.name, attempts + 1);
+    throw new MediaError(
+      "STORAGE_TRANSIENT",
+      "Synthetic retry fixture requests one transient failure.",
+    );
+  }
+  options.onProgress(100);
   return {
     evidenceAssetId: asEntityId("evidence-synthetic-upload"),
     status: "STORED",
@@ -509,8 +592,10 @@ export function CaptureWorkflowFeature({
         siteVisitId={siteVisitId}
         userId={workspace.user.id}
         audio={{
-          onTranscriptFallback: () =>
-            workflow.addActivity("Erfassung erstellt"),
+          onTranscriptFallback: (draft) => {
+            workflow.recordTranscript(draft.text);
+            workflow.addActivity("Erfassung erstellt");
+          },
           onUpload: localUpload,
           onAudioCaptured: () => workflow.addActivity("Erfassung erstellt"),
         }}
@@ -536,6 +621,12 @@ export function CaptureWorkflowFeature({
           <Sparkles aria-hidden="true" size={18} />
           Analyse starten
         </button>
+        {workflow.analysisError ? (
+          <p role="alert">{workflow.analysisError}</p>
+        ) : null}
+        {workflow.analysisNotice ? (
+          <p role="status">{workflow.analysisNotice}</p>
+        ) : null}
         {workflow.analysisComplete ? (
           <Link className="button secondary" href={`/projekte/${project.id}`}>
             Entwurf prüfen
@@ -570,10 +661,27 @@ export function ClarificationWorkflowFeature() {
 
 export function OfferWorkflowFeature() {
   const workflow = useIntegratedWorkflow();
+  const [exportBusy, setExportBusy] = useState(false);
+  const [exportError, setExportError] = useState<string>();
   const unresolvedCriticalQuestionCount = workflow.records.filter(
     (record) =>
       record.question.blocking && record.question.status !== "ANSWERED",
   ).length;
+
+  async function handleExport(kind: "PDF" | "CSV") {
+    setExportBusy(true);
+    setExportError(undefined);
+    try {
+      await workflow.exportCurrentRevision(kind);
+    } catch {
+      setExportError(
+        "Der Export konnte nicht erstellt werden. Die aktuelle Revision bleibt unverändert; bitte erneut versuchen.",
+      );
+    } finally {
+      setExportBusy(false);
+    }
+  }
+
   return (
     <section aria-labelledby="offer-workflow-title">
       <div className="section-heading simple">
@@ -584,9 +692,11 @@ export function OfferWorkflowFeature() {
       </div>
       <OfferReview
         approval={workflow.approval}
+        busy={exportBusy}
         draft={workflow.draft}
+        errorMessage={exportError}
         onApprove={workflow.approve}
-        onExport={workflow.exportCurrentRevision}
+        onExport={handleExport}
         onQuantityCommit={workflow.updateQuantity}
         revision={workflow.revision}
         unresolvedCriticalQuestionCount={unresolvedCriticalQuestionCount}

@@ -31,7 +31,7 @@ export default defineConfig({
     ? {
         command: process.env.HANDWERK_E2E_WEB_SERVER_COMMAND ?? "npm run dev",
         url: baseURL,
-        reuseExistingServer: !process.env.CI,
+        reuseExistingServer: false,
         timeout: 120_000,
       }
     : undefined,

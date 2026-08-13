@@ -17,7 +17,7 @@ HANDWERK_E2E_BASE_URL=http://127.0.0.1:3000 \
 npx playwright test --config=tests/e2e/playwright.config.ts
 ```
 
-The managed browser command starts `@handwerk/web` with `vinext start`; it therefore needs a current build. Locally it can reuse an existing server. CI builds first and always starts the local process from the pinned lockfile.
+The managed browser command starts `@handwerk/web` with `vinext start`; it therefore needs a current build. It never reuses an existing server, so both local and CI runs exercise the current build from the pinned lockfile.
 
 ## Route And Accessibility Contract
 
@@ -32,4 +32,4 @@ Route assumptions are centralized in `helpers/integration.ts`; accessible names 
 
 `canonical-journey.spec.ts` covers capture, deterministic analysis, the two canonical clarifications, price-book-backed draft, quantity revision, human approval, PDF/CSV download, audit activity, data export, demo deletion, keyboard focus, and Axe serious/critical violations.
 
-`recovery-and-safety.spec.ts` covers denied microphone fallback, blocked approval while critical questions remain open, approval invalidation after a commercial edit, neutral unknown-project handling, and explicit deletion acknowledgement. Fixture-contract tests cover synthetic-only labeling, tenant relationships, no photo-derived measurements, safe parsing, approved-price-book-only pricing, CSV formula neutralization, and money reconciliation.
+`recovery-and-safety.spec.ts` covers denied microphone fallback, blocked approval while critical questions remain open, approval invalidation after a commercial edit, neutral unknown-project handling, explicit deletion acknowledgement, one-time evidence upload failure/retry, invalid extraction safe failure, unapproved price-book mapping, export failure/retry, prompt-injection-as-data, and photo-only measurement authority. Fixture-contract tests cover synthetic-only labeling, tenant relationships, no photo-derived measurements, safe parsing, approved-price-book-only pricing, CSV formula neutralization, and money reconciliation.

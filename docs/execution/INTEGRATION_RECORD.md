@@ -31,21 +31,21 @@ The mandated merge order was observed: T01, T08, T09, T03, T04, T05, T06, T02, T
 
 ## Integrated Gates
 
-| Gate                   | Command or evidence                                                                                                                               | Result                                                              |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Quality                | `npm run ci:quality`                                                                                                                              | Passed after coordinator lint corrections                           |
-| Unit/platform          | `npm run test:unit`                                                                                                                               | 206 tests passed                                                    |
-| Web feature components | `vitest run --config vitest.config.ts apps/web/src/features`                                                                                      | 32 tests passed                                                     |
-| Web build/render       | `npm run build --workspace @handwerk/web`; rendered HTML tests                                                                                    | Passed; 5 rendered HTML tests                                       |
-| PostgreSQL             | Isolated synthetic migration twice, seed, `test:integration --workspace @handwerk/db`                                                             | Migrations idempotent; 11 tests passed                              |
-| Browser                | `npm run test:e2e`                                                                                                                                | 23 tests passed in 25.7s                                            |
-| Secrets                | `npm run security:secrets`                                                                                                                        | 327 files scanned; no potential secrets                             |
-| Production audit       | `npm run security:audit:prod`                                                                                                                     | 0 vulnerabilities                                                   |
-| Policy audit           | `npm run security:audit`                                                                                                                          | 0 critical; two time-bounded dev-tool exceptions through 2026-08-26 |
-| Inventory/SBOM         | `npm run security:inventory`; `npm run security:sbom`                                                                                             | Generated ignored local evidence files                              |
-| Clean install          | Detached `af8cfc3` then `d6c769a` worktree, `npm ci --ignore-scripts --no-audit --no-fund`, `npm ls --workspaces --depth=0`, `npm run ci:quality` | Passed                                                              |
+| Gate                   | Command or evidence                                                                   | Result                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Quality                | `npm run ci:quality`                                                                  | Passed after coordinator lint corrections                                                             |
+| Root build and test    | `npm test`                                                                            | 270 passed; 11 PostgreSQL integration tests correctly skipped without the explicit synthetic test URL |
+| Web feature components | `vitest run --config vitest.config.ts apps/web/src/features`                          | 32 tests passed                                                                                       |
+| Web build/render       | `npm run build --workspace @handwerk/web`; rendered HTML tests                        | Passed; 5 rendered HTML tests                                                                         |
+| PostgreSQL             | Isolated synthetic migration twice, seed, `test:integration --workspace @handwerk/db` | Migrations idempotent; 11 tests passed                                                                |
+| Browser                | `npm run test:e2e`                                                                    | 35 passed in 7.9s; fresh Vinext server owned by Playwright                                            |
+| Secrets                | `npm run security:secrets`                                                            | 327 files scanned; no potential secrets                                                               |
+| Production audit       | `npm run security:audit:prod`                                                         | 0 vulnerabilities                                                                                     |
+| Policy audit           | `npm run security:audit`                                                              | 0 critical; two time-bounded dev-tool exceptions through 2026-08-26                                   |
+| Inventory/SBOM         | `npm run security:inventory`; `npm run security:sbom`                                 | Generated ignored local evidence files                                                                |
+| Clean checkout         | Final correction SHA detached worktree and the nine required commands                 | Pending Cycle 1 final SHA                                                                             |
 
-The clean worktree's cold Vinext build did not finish before the desktop execution harness repeatedly interrupted its long client transform. This is an execution-environment limitation, not a reported build failure. The same serial root build/test path and all product checks passed in the integration worktree; no claim of a fully observed clean-worktree `npm test` is made.
+The former interrupted clean-worktree build is not counted as evidence. Cycle 1 must complete every required command from a fresh detached checkout before internal acceptance.
 
 ## Publication
 

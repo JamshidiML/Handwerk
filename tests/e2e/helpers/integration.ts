@@ -15,16 +15,10 @@ export async function installDeniedMicrophone(page: Page): Promise<void> {
         "NotAllowedError",
       );
     };
-    if (navigator.mediaDevices) {
-      Object.defineProperty(navigator.mediaDevices, "getUserMedia", {
-        configurable: true,
-        value: denied,
-      });
-      return;
-    }
+    const mediaDevices = { getUserMedia: denied };
     Object.defineProperty(navigator, "mediaDevices", {
       configurable: true,
-      value: { getUserMedia: denied },
+      value: mediaDevices,
     });
   });
 }
