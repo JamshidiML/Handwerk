@@ -38,7 +38,7 @@ const NOW = "2026-08-12T11:00:00.000Z" as IsoDateTime;
 const LATER = "2026-08-12T11:05:00.000Z" as IsoDateTime;
 const ORG = "org-westblick" as OrganisationId;
 const OTHER_ORG = "org-other" as OrganisationId;
-const USER = "user-demo-mohsen" as UserId;
+const USER = "user-demo-owner" as UserId;
 const id = (value: string) => value as EntityId;
 
 describeDatabase("PostgreSQL domain persistence", () => {
@@ -93,13 +93,16 @@ describeDatabase("PostgreSQL domain persistence", () => {
     await expect(
       repository.findCustomer(
         { organisationId: ORG },
-        id("customer-anna-becker"),
+        id("customer-synthetic-001"),
       ),
-    ).resolves.toMatchObject({ displayName: "Anna Becker", synthetic: true });
+    ).resolves.toMatchObject({
+      displayName: "Beispielkundin 01",
+      synthetic: true,
+    });
     await expect(
       repository.findCustomer(
         { organisationId: OTHER_ORG },
-        id("customer-anna-becker"),
+        id("customer-synthetic-001"),
       ),
     ).resolves.toBeNull();
     await expect(
@@ -407,7 +410,7 @@ describeDatabase("PostgreSQL domain persistence", () => {
       receipts: string;
     }>(`SELECT
       (SELECT count(*) FROM projects WHERE id = 'project-wohnzimmer-bochum') AS projects,
-      (SELECT count(*) FROM customers WHERE id = 'customer-anna-becker') AS customers,
+      (SELECT count(*) FROM customers WHERE id = 'customer-synthetic-001') AS customers,
       (SELECT count(*) FROM price_books WHERE id = 'pricebook-westblick-2026') AS price_books,
       (SELECT count(*) FROM deletion_receipts WHERE request_id = 'deletion-db-1') AS receipts`);
     expect(remaining.rows[0]).toEqual({

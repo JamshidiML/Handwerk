@@ -17,7 +17,7 @@ export const NOW = "2026-08-12T10:00:00.000Z" as IsoDateTime;
 export const LATER = "2026-08-12T10:05:00.000Z" as IsoDateTime;
 export const ORG = "org-westblick" as OrganisationId;
 export const OTHER_ORG = "org-other" as OrganisationId;
-export const USER = "user-demo-mohsen" as UserId;
+export const USER = "user-demo-owner" as UserId;
 
 export function id(value: string): EntityId {
   return value as EntityId;

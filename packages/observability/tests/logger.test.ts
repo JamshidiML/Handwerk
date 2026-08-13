@@ -16,13 +16,13 @@ describe("structured logger", () => {
     logger.info("extraction.completed", {
       durationMs: 120,
       outcome: "success",
-      transcript: "Anna Becker at a private address",
+      transcript: "Beispielkundin 01 at a private address",
       signedUrl: "https://storage.invalid/private-token",
       error: new Error("private failure details"),
     });
 
     expect(lines).toHaveLength(1);
-    expect(lines[0]).not.toContain("Anna Becker");
+    expect(lines[0]).not.toContain("Beispielkundin 01");
     expect(lines[0]).not.toContain("private-token");
     expect(lines[0]).not.toContain("private failure details");
     expect(JSON.parse(lines[0] ?? "{}")).toMatchObject({

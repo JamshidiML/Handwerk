@@ -10,7 +10,7 @@ export class QuoteCopilotPage {
   async openHome(): Promise<void> {
     await this.page.goto(routes.home);
     await expect(
-      this.page.getByRole("heading", { name: "Guten Morgen, Mohsen." }),
+      this.page.getByRole("heading", { name: "Guten Morgen, Demo-Inhaber." }),
     ).toBeVisible();
   }
 

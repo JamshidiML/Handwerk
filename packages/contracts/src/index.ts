@@ -363,8 +363,8 @@ export interface HandwerkEvent<T extends AuditEventType = AuditEventType> {
 
 export const CANONICAL_IDS = {
   organisation: "org-westblick" as OrganisationId,
-  user: "user-demo-mohsen" as UserId,
-  customer: "customer-anna-becker" as EntityId,
+  user: "user-demo-owner" as UserId,
+  customer: "customer-synthetic-001" as EntityId,
   project: "project-wohnzimmer-bochum" as EntityId,
   siteVisit: "visit-wohnzimmer-001" as EntityId,
 } as const;

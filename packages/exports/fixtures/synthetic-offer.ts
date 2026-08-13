@@ -161,7 +161,7 @@ export function createSyntheticApprovedExportInput(
     approval,
     unresolvedCriticalQuestionIds: [],
     organisationName: "Malerbetrieb Westblick GmbH",
-    recipientName: "Anna Becker (synthetisch)",
+    recipientName: "Beispielkundin 01 (synthetisch)",
     projectName: "Wohnzimmer renovieren",
     projectLocation: "Bochum - synthetisches Projekt",
     offerNumber: "SYN-WB-2026-0007",

@@ -9,20 +9,20 @@ INSERT INTO organisations (
 ) ON CONFLICT DO NOTHING;
 
 INSERT INTO users (id, display_name, synthetic) VALUES
-  ('user-demo-mohsen', 'Demo-Inhaber Mohsen', true)
+  ('user-demo-owner', 'Demo-Inhaber', true)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO memberships (
   organisation_id, id, user_id, role, active, created_at, updated_at, version
 ) VALUES (
-  'org-westblick', 'membership-westblick-owner', 'user-demo-mohsen', 'OWNER', true,
+  'org-westblick', 'membership-westblick-owner', 'user-demo-owner', 'OWNER', true,
   '2026-08-12T09:00:00Z', '2026-08-12T09:00:00Z', 1
 ) ON CONFLICT DO NOTHING;
 
 INSERT INTO customers (
   organisation_id, id, display_name, synthetic, created_at, updated_at, version
 ) VALUES (
-  'org-westblick', 'customer-anna-becker', 'Anna Becker', true,
+  'org-westblick', 'customer-synthetic-001', 'Beispielkundin 01', true,
   '2026-08-12T09:00:00Z', '2026-08-12T09:00:00Z', 1
 ) ON CONFLICT DO NOTHING;
 
@@ -30,7 +30,7 @@ INSERT INTO projects (
   organisation_id, id, customer_id, name, location_label, synthetic,
   created_at, updated_at, version
 ) VALUES (
-  'org-westblick', 'project-wohnzimmer-bochum', 'customer-anna-becker',
+  'org-westblick', 'project-wohnzimmer-bochum', 'customer-synthetic-001',
   'Wohnzimmer renovieren — Bochum', 'Bochum (synthetisch)', true,
   '2026-08-12T09:00:00Z', '2026-08-12T09:00:00Z', 1
 ) ON CONFLICT DO NOTHING;

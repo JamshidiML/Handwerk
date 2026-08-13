@@ -30,7 +30,7 @@ describe("privacy-preserving metrics", () => {
       metrics.record({
         name: "mapping.result_total",
         value: 1,
-        labels: { result: "supported", customer: "Anna Becker" },
+        labels: { result: "supported", customer: "Beispielkundin 01" },
       }),
     ).toThrow("invalid label keys");
     expect(() =>

@@ -45,7 +45,7 @@ test("renders the operational German demo shell instead of starter metadata", as
   );
   assert.match(html, /Malerbetrieb Westblick GmbH/);
   assert.match(html, /Interne Demo/);
-  assert.match(html, /Guten Morgen, (?:<!-- -->)?Mohsen(?:<!-- -->)?\./);
+  assert.match(html, /Guten Morgen, (?:<!-- -->)?Demo-Inhaber(?:<!-- -->)?\./);
   assert.match(html, /Wohnzimmer renovieren - Bochum/);
   assert.match(html, /Baustellenbesuch fortsetzen/);
   assert.match(html, /href="#main-content"/);
@@ -64,7 +64,7 @@ test("supports the customer-to-project-to-site-visit route journey", async () =>
     customerHtml,
     /<title>Kunden und Projekte \| Angebots-Copilot<\/title>/i,
   );
-  assert.match(customerHtml, /Anna Becker/);
+  assert.match(customerHtml, /Beispielkundin 01/);
   assert.match(customerHtml, /Demo-Hausverwaltung Morgenrot/);
   assert.match(customerHtml, /Kunde anlegen/);
   assert.match(customerHtml, /href="\/projekte\/project-wohnzimmer-bochum"/);

@@ -96,10 +96,10 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <div className="sidebar-identity">
           <span className="avatar" aria-hidden="true">
-            MJ
+            DI
           </span>
           <span>
-            <strong>Mohsen Jamshidi</strong>
+            <strong>Demo-Inhaber</strong>
             <small>Inhaber · Demo-Nutzer</small>
           </span>
         </div>

@@ -1,8 +1,8 @@
 {
   "synthetic": true,
-  "id": "customer-anna-becker",
+  "id": "customer-synthetic-001",
   "organisationId": "org-westblick",
-  "displayName": "Anna Becker",
+  "displayName": "Beispielkundin 01",
   "createdAt": "2026-08-12T08:01:00.000Z",
   "updatedAt": "2026-08-12T08:01:00.000Z",
   "version": 1

@@ -12,11 +12,11 @@ This is the coordinator's evidence-based assessment of the internal synthetic sl
 | Mobile UX and accessibility            |       8 | 390px Chromium journey, manual viewport inspection, keyboard focus, Axe serious/critical smoke                                               |      8 |
 | Architecture and maintainability       |       7 | Frozen contracts, package boundaries, public browser entrypoints, serial root test wiring                                                    |      6 |
 | Operations and observability           |       5 | CI workflow, runbook, SBOM, local health/config/redaction coverage                                                                           |      4 |
-| **Total**                              | **100** | Conditional on final clean-checkout and GitHub CI gates                                                                                      | **94** |
+| **Total**                              | **100** | Detached clean-checkout gate complete; GitHub CI remains required                                                                            | **94** |
 
 ## Score Boundaries
 
-- The numerical score is not an acceptance decision until the final correction SHA completes fresh-checkout and GitHub CI gates. It does not remove production blockers.
-- The former interrupted Vinext-build claim has been withdrawn. Cycle 1 requires a completed detached clean-checkout build and test run.
+- The numerical score is not an acceptance decision until the final correction SHA completes GitHub CI. It does not remove production blockers.
+- The former interrupted Vinext-build claim has been withdrawn. Cycle 1 completed a detached clean-checkout build and test run; it must be repeated after any later correction commit.
 - Privacy/security retains a deduction for two documented development-tool audit exceptions (`vinext`, `image-size`) that expire on 2026-08-26, even though the production audit reports zero vulnerabilities.
 - The slice deliberately excludes persistent multi-user authentication, managed secrets, hosted storage, external AI, production observability, backup/restore drills, legal review, and production deployment.

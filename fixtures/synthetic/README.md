@@ -2,7 +2,7 @@
 
 Every file in this directory is fabricated for the Handwerk Quote Copilot internal vertical slice. Names, identifiers, project details, media, transcript content, measurements, prices, and outputs are synthetic and must never be presented as customer evidence.
 
-The canonical display names required by the product brief are retained, including `Malerbetrieb Westblick GmbH`, `Anna Becker`, and `Wohnzimmer renovieren - Bochum`. They identify fictional demo records only. No street address, contact detail, account credential, real site media, or confidential price book is present.
+The canonical display names are explicitly synthetic, including `Malerbetrieb Westblick GmbH`, `Beispielkundin 01`, and `Wohnzimmer renovieren - Bochum`. No street address, contact detail, account credential, real site media, or confidential price book is present.
 
 ## Layout
 

@@ -442,7 +442,7 @@ export function IntegratedWorkflowProvider({
       ...(approval ? { approval } : {}),
       unresolvedCriticalQuestionIds,
       organisationName: workspace.organisation.name,
-      recipientName: "Anna Becker (synthetisch)",
+      recipientName: "Beispielkundin 01 (synthetisch)",
       projectName: "Wohnzimmer renovieren",
       projectLocation: "Bochum - synthetisches Projekt",
       offerNumber: `SYN-WB-2026-${String(revision.revision).padStart(4, "0")}`,

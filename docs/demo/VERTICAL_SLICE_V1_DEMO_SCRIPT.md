@@ -14,7 +14,7 @@ This is a five-to-ten-minute internal demonstration using the committed `handwer
 ## Walkthrough
 
 1. Open `/demo` and identify the synthetic organisation `Malerbetrieb Westblick GmbH`.
-2. Select the fictional customer `Anna Becker` and `Wohnzimmer renovieren - Bochum`. Point out the synthetic-data labelling.
+2. Select the synthetic customer `Beispielkundin 01` and `Wohnzimmer renovieren - Bochum`. Point out the synthetic-data labelling.
 3. Start the site-visit capture. Upload the generated tone WAV and the watermarked synthetic PNG. If microphone access is unavailable, use the explicitly labelled transcript fallback.
 4. Enter the explicit measurements: `52 m²` of wall area and `20 m²` of ceiling area. State that the photo is context-only and is not a measurement source.
 5. Start the deterministic extraction. Review the transcript-derived two wall coats and two door frames, then show the unresolved ceiling inclusion and substrate condition.

@@ -17,7 +17,7 @@ The browser suite uses the deterministic in-memory synthetic workspace. It does 
 
 ## Cycle 1 Gate Record
 
-The integrated checkout completed `npm run ci:quality`, `npm test` (270 passed; 11 database integration tests skipped without the explicit synthetic test URL), and the 35-test browser matrix. Playwright now rejects a reused server, so a current built app is always started by the test command. The final acceptance record is completed only after the detached clean checkout and GitHub workflow for the correction SHA finish; interrupted work is never counted as a pass.
+The detached Cycle 1 checkout completed `npm ci --ignore-scripts --no-audit --no-fund` (582 packages in 6s), workspace inventory, `npm run ci:quality`, `npm test` (270 passed; 11 database integration tests skipped without the explicit synthetic test URL), `npm run test:integration` (11 passed against the isolated synthetic PostgreSQL URL), `npm run test:e2e` (35 passed in 8.4s), secrets scan, production audit (zero vulnerabilities), and policy audit. Playwright rejects a reused server, so a current built app is always started by the test command. Final acceptance still requires a passing GitHub workflow for the correction SHA; interrupted work is never counted as a pass.
 
 ## Deliberate Limits
 

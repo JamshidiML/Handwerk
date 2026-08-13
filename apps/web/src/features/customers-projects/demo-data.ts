@@ -64,19 +64,19 @@ const organisation: Organisation = {
 
 const user: User = {
   id: CANONICAL_IDS.user,
-  displayName: "Mohsen Jamshidi",
+  displayName: "Demo-Inhaber",
   synthetic: true,
 };
 
-const anna = customer(
+const syntheticCustomer = customer(
   CANONICAL_IDS.customer,
-  "Anna Becker",
+  "Beispielkundin 01",
   "2026-08-10T09:15:00.000Z",
 );
 
 const livingRoom = project(
   CANONICAL_IDS.project,
-  anna.id,
+  syntheticCustomer.id,
   "Wohnzimmer renovieren - Bochum",
   "Bochum-Wiemelhausen",
   "2026-08-10T09:20:00.000Z",
@@ -150,7 +150,7 @@ export const INITIAL_DEMO_WORKSPACE: DemoWorkspace = {
   organisation,
   user,
   customers: [
-    { customer: anna, projects: [canonicalSummary] },
+    { customer: syntheticCustomer, projects: [canonicalSummary] },
     { customer: morgenrot, projects: [completedSummary] },
     { customer: atelier, projects: [] },
   ],

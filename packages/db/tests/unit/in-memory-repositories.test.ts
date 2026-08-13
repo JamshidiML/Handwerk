@@ -25,7 +25,7 @@ import {
 const NOW = "2026-08-12T10:00:00.000Z" as IsoDateTime;
 const ORG = "org-westblick" as OrganisationId;
 const OTHER_ORG = "org-other" as OrganisationId;
-const USER = "user-demo-mohsen" as UserId;
+const USER = "user-demo-owner" as UserId;
 const id = (value: string) => value as EntityId;
 
 const book: PriceBook = {
