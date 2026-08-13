@@ -1,0 +1,41 @@
+{
+  "fixtureSetId": "handwerk-synthetic-v1",
+  "contractVersion": "handwerk.vertical-slice.v1",
+  "synthetic": true,
+  "disclaimer": "FABRICATED TEST DATA ONLY - NO REAL CUSTOMER OR SITE DATA",
+  "locale": "de-DE",
+  "currency": "EUR",
+  "canonicalIds": {
+    "organisation": "org-westblick",
+    "user": "user-demo-fachkraft",
+    "customer": "customer-synthetic-001",
+    "project": "project-wohnzimmer-bochum",
+    "siteVisit": "visit-wohnzimmer-001"
+  },
+  "requiredFiles": [
+    "identity/organisation.json",
+    "identity/user.json",
+    "identity/customer.json",
+    "identity/project.json",
+    "capture/audio-note.json",
+    "capture/transcript.json",
+    "capture/photo.json",
+    "capture/measurements.json",
+    "media/synthetic-site-note.wav",
+    "media/synthetic-living-room.png",
+    "media/media-manifest.json",
+    "pricebook/approved-pricebook.json",
+    "extraction/expected-facts.json",
+    "extraction/invalid-model-output.json",
+    "extraction/hallucinated-code.json",
+    "extraction/photo-only-measurement.json",
+    "extraction/prompt-injection-transcript.json",
+    "clarifications/canonical.json",
+    "draft/approved-draft.json",
+    "exports/expectations.json",
+    "exports/offer.expected.csv",
+    "security/cross-tenant.json",
+    "security/malicious-csv.json",
+    "scenarios.json"
+  ]
+}

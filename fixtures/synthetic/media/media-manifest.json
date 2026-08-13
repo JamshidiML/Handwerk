@@ -1,0 +1,23 @@
+{
+  "fixtureSetId": "handwerk-synthetic-v1",
+  "synthetic": true,
+  "generatedBy": "fixtures/synthetic/tools/generate-media.mjs",
+  "files": [
+    {
+      "filename": "synthetic-living-room.png",
+      "mediaType": "image/png",
+      "sizeBytes": 3226,
+      "checksumSha256": "dcf0623acd7697a66ff536b20747445fedbf3ceb0a68241979fc2e39b21b72bf",
+      "synthetic": true,
+      "semantics": "Geometric room test image with an embedded SYNTHETIC TEST IMAGE watermark."
+    },
+    {
+      "filename": "synthetic-site-note.wav",
+      "mediaType": "audio/wav",
+      "sizeBytes": 64044,
+      "checksumSha256": "1b45afd862f75b98769a8a97a4d775e2099b3d28a55c5d24533cd850e1751b66",
+      "synthetic": true,
+      "semantics": "Synthetic generated two-tone PCM audio; contains no human speech or biometric data."
+    }
+  ]
+}

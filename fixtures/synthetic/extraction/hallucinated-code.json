@@ -1,0 +1,30 @@
+{
+  "synthetic": true,
+  "fixtureId": "hallucinated-commercial-fields",
+  "modelOutput": {
+    "contractVersion": "handwerk.vertical-slice.v1",
+    "facts": [
+      {
+        "key": "invented_special_coating",
+        "value": true,
+        "status": "CONFIRMED",
+        "sourceLocators": [
+          {
+            "sourceType": "TRANSCRIPT_SEGMENT",
+            "sourceEntityId": "transcript-segment-injection-001",
+            "locator": "0-9000ms",
+            "authority": "AUTHORITATIVE"
+          }
+        ],
+        "approvedItemCode": "AI-SPEZIAL-999",
+        "unitPrice": { "currency": "EUR", "minor": 1 }
+      }
+    ],
+    "missingFields": []
+  },
+  "expected": {
+    "status": "FAILED_SAFE",
+    "rejectedFields": ["approvedItemCode", "unitPrice"],
+    "pricedLinesCreated": 0
+  }
+}

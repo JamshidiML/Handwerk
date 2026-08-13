@@ -64,7 +64,7 @@ The product is a copilot, not an autonomous estimator, ERP replacement, accounti
 The integrated result must demonstrate this exact journey on a responsive mobile-first web application:
 
 1. A demo user enters a synthetic organisation called `Malerbetrieb Westblick GmbH`.
-2. The user creates or selects the synthetic customer `Anna Becker` and the project `Wohnzimmer renovieren — Bochum`.
+2. The user creates or selects the synthetic customer `Beispielkundin 01` and the project `Wohnzimmer renovieren — Bochum`.
 3. The user starts a site visit and records or uploads:
    - one short audio note, or uses a clearly labelled transcript fallback when microphone/media APIs are unavailable;
    - at least one synthetic site photo;
@@ -723,13 +723,13 @@ Return a concise executive summary first, followed by evidence tables. Include:
 9. Known limitations and items deliberately excluded.
 10. Exact local run/demo commands.
 11. Correction cycles performed and their final outcomes.
-12. Recommendation to Mohsen: accept the internal slice, request correction, or stop/revise before further investment.
+12. Recommendation to the product owner: accept the internal slice, request correction, or stop/revise before further investment.
 
 Use precise language. Distinguish `implemented`, `tested`, `manually verified`, `documented`, and `not implemented`. Do not use `production-ready`, `GDPR-compliant`, `legally compliant`, or `market-ready` unless independent evidence actually supports those claims.
 
 ## START NOW
 
-Begin with the coordinator bootstrap checkpoint. Do not ask broad architectural or product questions that the brief already answers. Ask Mohsen only when a missing choice is truly blocking, destructive, paid, legally consequential, or outside the granted scope. Otherwise make the safest reversible decision, record it in the decision register, and continue through implementation, integration, verification, and the correction loop.
+Begin with the coordinator bootstrap checkpoint. Do not ask broad architectural or product questions that the brief already answers. Ask the product owner only when a missing choice is truly blocking, destructive, paid, legally consequential, or outside the granted scope. Otherwise make the safest reversible decision, record it in the decision register, and continue through implementation, integration, verification, and the correction loop.
 
 ---
 

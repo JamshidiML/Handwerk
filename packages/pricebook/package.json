@@ -1,0 +1,21 @@
+{
+  "name": "@handwerk/pricebook",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./browser": "./src/browser.ts",
+    "./types": "./src/types.ts"
+  },
+  "dependencies": {
+    "@handwerk/contracts": "0.1.0",
+    "papaparse": "5.5.3"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run"
+  }
+}

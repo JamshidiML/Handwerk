@@ -1,0 +1,11 @@
+{
+  "synthetic": true,
+  "id": "project-wohnzimmer-bochum",
+  "organisationId": "org-westblick",
+  "customerId": "customer-synthetic-001",
+  "name": "Wohnzimmer renovieren - Bochum",
+  "locationLabel": "Bochum (synthetischer Demo-Ort, keine reale Adresse)",
+  "createdAt": "2026-08-12T08:02:00.000Z",
+  "updatedAt": "2026-08-12T08:02:00.000Z",
+  "version": 1
+}

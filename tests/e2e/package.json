@@ -1,0 +1,13 @@
+{
+  "name": "@handwerk/e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "npm run test:fixtures",
+    "test:e2e": "HANDWERK_E2E_START_SERVER=1 HANDWERK_E2E_WEB_SERVER_COMMAND='npm --prefix ../../apps/web run start -- --port 3000' playwright test --config=playwright.config.ts",
+    "test:list": "playwright test --config=playwright.config.ts --list",
+    "test:fixtures": "playwright test --config=playwright.config.ts --project=fixture-contract",
+    "typecheck": "tsc --project tsconfig.json"
+  }
+}

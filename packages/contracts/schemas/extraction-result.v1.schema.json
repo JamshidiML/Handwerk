@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://handwerk.local/contracts/extraction-result.v1.schema.json",
+  "title": "Handwerk deterministic extraction result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "facts", "missingFields"],
+  "properties": {
+    "contractVersion": { "const": "handwerk.vertical-slice.v1" },
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "value", "status", "sourceLocators"],
+        "properties": {
+          "key": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "value": { "type": ["string", "number", "boolean", "null"] },
+          "unit": { "enum": ["M2", "M", "STK", "STD", "PAUSCHALE"] },
+          "status": {
+            "enum": ["CONFIRMED", "UNCERTAIN", "UNKNOWN", "CONTRADICTORY"]
+          },
+          "sourceLocators": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "sourceType",
+                "sourceEntityId",
+                "locator",
+                "authority"
+              ],
+              "properties": {
+                "sourceType": {
+                  "enum": [
+                    "TRANSCRIPT_SEGMENT",
+                    "EXPLICIT_MEASUREMENT",
+                    "USER_ANSWER",
+                    "COMPANY_RULE",
+                    "PHOTO_CONTEXT"
+                  ]
+                },
+                "sourceEntityId": { "type": "string", "minLength": 1 },
+                "locator": { "type": "string", "minLength": 1 },
+                "authority": { "enum": ["AUTHORITATIVE", "CONTEXT_ONLY"] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "missingFields": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 100 }
+    }
+  },
+  "not": {
+    "anyOf": [
+      { "required": ["unitPrice"] },
+      { "required": ["priceBookItemId"] },
+      { "required": ["approvedItemCode"] }
+    ]
+  }
+}

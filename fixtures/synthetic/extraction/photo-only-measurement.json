@@ -1,0 +1,29 @@
+{
+  "synthetic": true,
+  "fixtureId": "photo-only-area-is-context",
+  "modelOutput": {
+    "contractVersion": "handwerk.vertical-slice.v1",
+    "facts": [
+      {
+        "key": "wall_area",
+        "value": 99,
+        "unit": "M2",
+        "status": "UNCERTAIN",
+        "sourceLocators": [
+          {
+            "sourceType": "PHOTO_CONTEXT",
+            "sourceEntityId": "photo-westblick-001",
+            "locator": "visible-wall-context",
+            "authority": "CONTEXT_ONLY"
+          }
+        ]
+      }
+    ],
+    "missingFields": ["wall_area"]
+  },
+  "expected": {
+    "authoritativeMeasurementsCreated": 0,
+    "pricedLinesCreated": 0,
+    "requiresExplicitMeasurement": true
+  }
+}

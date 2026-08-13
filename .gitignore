@@ -1,0 +1,14 @@
+node_modules/
+.worktrees/
+.artifacts/
+.env
+.env.*
+!.env.example
+dist/
+coverage/
+test-results/
+playwright-report/
+.wrangler/
+.DS_Store
+*.log
+*.tsbuildinfo

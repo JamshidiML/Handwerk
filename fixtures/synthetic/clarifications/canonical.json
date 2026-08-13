@@ -1,0 +1,83 @@
+{
+  "synthetic": true,
+  "questions": [
+    {
+      "id": "question-ceiling-included",
+      "organisationId": "org-westblick",
+      "projectId": "project-wohnzimmer-bochum",
+      "key": "ceiling_included",
+      "prompt": "Soll die Decke mitgestrichen werden?",
+      "rationale": "Die Deckenfläche wurde gemessen, die Beauftragung ist aber offen.",
+      "answerType": "BOOLEAN",
+      "options": ["Ja", "Nein"],
+      "severity": "CRITICAL",
+      "blocking": true,
+      "status": "ANSWERED",
+      "sourceContext": [
+        {
+          "id": "citation-question-ceiling",
+          "organisationId": "org-westblick",
+          "sourceType": "TRANSCRIPT_SEGMENT",
+          "sourceEntityId": "transcript-segment-002",
+          "locator": "4100-7000ms",
+          "extractionVersion": "deterministic-fixture-v1",
+          "explanation": "Im Transkript bleibt die Deckenbeauftragung offen.",
+          "authority": "AUTHORITATIVE"
+        }
+      ],
+      "createdAt": "2026-08-12T08:06:00.000Z",
+      "updatedAt": "2026-08-12T08:08:00.000Z",
+      "version": 2
+    },
+    {
+      "id": "question-substrate-sound",
+      "organisationId": "org-westblick",
+      "projectId": "project-wohnzimmer-bochum",
+      "key": "substrate_sound",
+      "prompt": "Ist der Untergrund tragfähig und ohne zusätzliche Ausbesserung?",
+      "rationale": "Unbekannte Untergrundarbeiten dürfen nicht automatisch bepreist werden.",
+      "answerType": "BOOLEAN",
+      "options": ["Ja", "Nein"],
+      "severity": "CRITICAL",
+      "blocking": true,
+      "status": "ANSWERED",
+      "sourceContext": [
+        {
+          "id": "citation-question-substrate",
+          "organisationId": "org-westblick",
+          "sourceType": "TRANSCRIPT_SEGMENT",
+          "sourceEntityId": "transcript-segment-004",
+          "locator": "9300-11800ms",
+          "extractionVersion": "deterministic-fixture-v1",
+          "explanation": "Das Transkript bestätigt den Untergrund nicht.",
+          "authority": "AUTHORITATIVE"
+        }
+      ],
+      "createdAt": "2026-08-12T08:06:00.000Z",
+      "updatedAt": "2026-08-12T08:08:00.000Z",
+      "version": 2
+    }
+  ],
+  "answers": [
+    {
+      "id": "answer-ceiling-no",
+      "organisationId": "org-westblick",
+      "questionId": "question-ceiling-included",
+      "answeredByUserId": "user-demo-fachkraft",
+      "value": false,
+      "createdAt": "2026-08-12T08:08:00.000Z",
+      "updatedAt": "2026-08-12T08:08:00.000Z",
+      "version": 1
+    },
+    {
+      "id": "answer-substrate-yes",
+      "organisationId": "org-westblick",
+      "questionId": "question-substrate-sound",
+      "answeredByUserId": "user-demo-fachkraft",
+      "value": true,
+      "createdAt": "2026-08-12T08:08:00.000Z",
+      "updatedAt": "2026-08-12T08:08:00.000Z",
+      "version": 1
+    }
+  ]
+}

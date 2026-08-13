@@ -1,0 +1,164 @@
+name: Vertical slice CI
+
+on:
+  push:
+    branches: [main, "codex/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: handwerk-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: "true"
+  HANDWERK_ENV: test
+  DEMO_MODE: "true"
+  AI_PROVIDER: deterministic_fake
+  ENABLE_LIVE_AI: "false"
+  LOG_LEVEL: info
+  TELEMETRY_MODE: disabled
+  PORT: "3000"
+  POSTGRES_DB: handwerk_test
+  POSTGRES_USER: handwerk_test
+  POSTGRES_PASSWORD: synthetic-ci-only-change-me
+  POSTGRES_PORT: "5432"
+  DATABASE_URL: postgresql://handwerk_test:synthetic-ci-only-change-me@127.0.0.1:5432/handwerk_test
+  OBJECT_STORAGE_ENDPOINT: http://127.0.0.1:9000
+  OBJECT_STORAGE_REGION: eu-central-1
+  OBJECT_STORAGE_BUCKET: handwerk-synthetic-ci
+  OBJECT_STORAGE_ACCESS_KEY: synthetic-ci-access
+  OBJECT_STORAGE_SECRET_KEY: synthetic-ci-only-change-me
+  OBJECT_STORAGE_PORT: "9000"
+  OBJECT_STORAGE_CONSOLE_PORT: "9001"
+
+jobs:
+  quality:
+    name: Quality (Node ${{ matrix.node }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["22.13.0", "26.3.0"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - name: Pin npm
+        run: npm install --global npm@11.16.0
+      - name: Install from lockfile
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Validate environment
+        run: npm run env:check
+      - name: Formatting
+        run: npm run format:check
+      - name: Lint
+        run: npm run lint
+      - name: Type check
+        run: npm run typecheck
+
+  unit-build:
+    name: Unit and build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm install --global npm@11.16.0
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Fresh-worktree build and test
+        run: npm test
+
+  integration:
+    name: PostgreSQL integration and migrations
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      POSTGRES_DB: handwerk_t01_test
+      DATABASE_URL: postgresql://handwerk_test:synthetic-ci-only-change-me@127.0.0.1:5432/handwerk_t01_test
+      HANDWERK_TEST_DATABASE_URL: postgresql://handwerk_test:synthetic-ci-only-change-me@127.0.0.1:5432/handwerk_t01_test
+      HANDWERK_REQUIRE_DB_INTEGRATION: "true"
+    services:
+      postgres:
+        image: postgres:17.6-alpine3.22
+        env:
+          POSTGRES_DB: handwerk_t01_test
+          POSTGRES_USER: handwerk_test
+          POSTGRES_PASSWORD: synthetic-ci-only-change-me
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U handwerk_test -d handwerk_t01_test"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm install --global npm@11.16.0
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Forward-only migration idempotence
+        run: npm run db:migration:check
+      - name: Synthetic seed
+        run: npm run db:seed
+      - name: Integration tests
+        run: npm run test:integration
+
+  e2e:
+    name: Browser acceptance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-noble
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm install --global npm@11.16.0
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Build browser runtime
+        run: npm run build
+      - run: npm run test:e2e
+
+  security:
+    name: Secrets, audit, and inventory
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm install --global npm@11.16.0
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run security:secrets
+      - run: npm run security:audit:prod
+      - run: npm run security:audit
+      - run: npm run security:inventory
+      - run: npm run security:sbom
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dependency-evidence
+          path: |
+            .artifacts/dependency-inventory.json
+            .artifacts/sbom.cdx.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

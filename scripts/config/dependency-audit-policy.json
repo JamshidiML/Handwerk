@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "exceptions": [
+    {
+      "package": "image-size",
+      "severity": "high",
+      "nodes": ["apps/web/node_modules/image-size"],
+      "expiresOn": "2026-08-26",
+      "owner": "T09/coordinator",
+      "reason": "Development-only transitive pin from vinext@0.0.50. vinext@0.0.45 was evaluated in an isolated clean install but fails the current RSC build; the newest published beta still pins image-size@2.0.2.",
+      "productionNonReachability": "npm audit --omit=dev --audit-level=high must remain clean",
+      "scope": "development-only"
+    },
+    {
+      "package": "vinext",
+      "severity": "high",
+      "nodes": ["apps/web/node_modules/vinext"],
+      "expiresOn": "2026-08-26",
+      "owner": "T09/coordinator",
+      "reason": "Development-only parent finding for the exact image-size advisory path; direct apps/web dependency is evaluated by the coordinator and cannot use the incompatible npm downgrade.",
+      "productionNonReachability": "npm audit --omit=dev --audit-level=high must remain clean",
+      "scope": "development-only"
+    }
+  ]
+}
