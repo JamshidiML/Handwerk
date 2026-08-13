@@ -29,10 +29,21 @@ import {
 } from "../../src/index";
 
 const connectionString = process.env.HANDWERK_TEST_DATABASE_URL;
-const describeDatabase =
-  connectionString?.endsWith("/handwerk_t01_test") === true
-    ? describe
-    : describe.skip;
+const hasExplicitSyntheticDatabase =
+  connectionString?.endsWith("/handwerk_t01_test") === true;
+
+if (
+  process.env.HANDWERK_REQUIRE_DB_INTEGRATION === "true" &&
+  !hasExplicitSyntheticDatabase
+) {
+  throw new Error(
+    "Database integration is required but HANDWERK_TEST_DATABASE_URL does not target /handwerk_t01_test.",
+  );
+}
+
+const describeDatabase = hasExplicitSyntheticDatabase
+  ? describe
+  : describe.skip;
 
 const NOW = "2026-08-12T11:00:00.000Z" as IsoDateTime;
 const LATER = "2026-08-12T11:05:00.000Z" as IsoDateTime;

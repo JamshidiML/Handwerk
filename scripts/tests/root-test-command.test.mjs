@@ -18,6 +18,13 @@ const workflow = readFileSync(
   resolve(import.meta.dirname, "../../.github/workflows/ci.yml"),
   "utf8",
 );
+const databaseIntegrationTest = readFileSync(
+  resolve(
+    import.meta.dirname,
+    "../../packages/db/tests/integration/postgres.integration.test.ts",
+  ),
+  "utf8",
+);
 
 describe("root test command", () => {
   it("builds before running workspace tests", () => {
@@ -69,5 +76,29 @@ describe("cross-platform CI contracts", () => {
     expect(artifactStep).toMatch(/if-no-files-found: error/);
     expect(artifactStep).toMatch(/retention-days: 14/);
     expect(artifactStep).not.toMatch(/path: \.artifacts\/\s*$/m);
+  });
+
+  it("requires the PostgreSQL job to execute the integration suite", () => {
+    const globalEnvironment = workflow.slice(
+      workflow.indexOf("env:"),
+      workflow.indexOf("jobs:"),
+    );
+    const integrationJob = workflow.slice(
+      workflow.indexOf("  integration:"),
+      workflow.indexOf("  e2e:"),
+    );
+
+    expect(globalEnvironment).not.toContain("HANDWERK_TEST_DATABASE_URL");
+    expect(integrationJob).toMatch(
+      /HANDWERK_TEST_DATABASE_URL: postgresql:\/\/handwerk_test:synthetic-ci-only-change-me@127\.0\.0\.1:5432\/handwerk_t01_test/,
+    );
+    expect(integrationJob).toMatch(/HANDWERK_REQUIRE_DB_INTEGRATION: "true"/);
+    expect(integrationJob).toMatch(/POSTGRES_DB: handwerk_t01_test/);
+    expect(integrationJob).toMatch(
+      /pg_isready -U handwerk_test -d handwerk_t01_test/,
+    );
+    expect(databaseIntegrationTest).toContain(
+      'process.env.HANDWERK_REQUIRE_DB_INTEGRATION === "true"',
+    );
   });
 });
