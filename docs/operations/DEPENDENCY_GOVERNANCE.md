@@ -26,6 +26,12 @@ Two exact development-only findings remain accepted through 2026-08-26 in `scrip
 
 Remove an override when its owning direct package declares a patched version and the full gate passes without it.
 
+## Cross-Platform Native Packages
+
+Cycle 2 found that a lockfile generated on macOS referenced `@tailwindcss/oxide-linux-x64-gnu@4.2.1` through `@tailwindcss/oxide@4.2.1` but omitted the platform package's resolved lock record. This caused clean Ubuntu `npm ci` builds to fail while loading the PostCSS native binding. `apps/web` therefore owns an exact optional dependency on `@tailwindcss/oxide-linux-x64-gnu@4.2.1`, the narrowest workspace that loads Tailwind during its build. npm 11.16.0 generated the corresponding resolved and integrity metadata; no metadata was fabricated and CI performs no follow-up install.
+
+Platform regression tests require that exact manifest and lock record, the Tailwind graph, and the existing `lightningcss-linux-x64-gnu@1.31.1` record. A disposable Noble/glibc x86_64 container proved that one clean install materializes both bindings, and hosted PR run [`31696348445`](https://github.com/JamshidiML/Handwerk/actions/runs/31696348445) completed the cold build.
+
 ## Evidence Commands
 
 ```sh
@@ -37,7 +43,7 @@ npm run security:inventory
 npm run security:sbom
 ```
 
-The deterministic inventory derives only from `package-lock.json` and includes its SHA-256. The CycloneDX SBOM comes from `npm sbom`. Both outputs are ignored locally and retained for 14 days by CI.
+The deterministic inventory derives only from `package-lock.json` and includes its SHA-256. The CycloneDX SBOM comes from `npm sbom`. Both outputs are ignored locally and retained for 14 days by CI. The workflow lists those two files explicitly, enables hidden files only because the dedicated `.artifacts/` directory is hidden, fails when either path is absent, and does not upload the directory broadly. Cycle 2 artifact `9179465931` was downloaded and inspected: its retained file list is exactly `dependency-inventory.json` and `sbom.cdx.json`.
 
 ## Workspace Reconciliation
 
