@@ -152,6 +152,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: dependency-evidence
-          path: .artifacts/
+          path: |
+            .artifacts/dependency-inventory.json
+            .artifacts/sbom.cdx.json
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 14
